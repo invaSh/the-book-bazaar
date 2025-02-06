@@ -1,7 +1,7 @@
 ﻿using BookService.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookService.Persistance
+namespace BookService.Infrastructure.Data
 {
     public class DataContext : DbContext
     {

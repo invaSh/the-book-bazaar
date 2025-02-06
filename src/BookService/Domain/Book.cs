@@ -1,8 +1,10 @@
-﻿namespace BookService.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookService.Domain
 {
     public class Book
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public string ISBN { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OdlxErwsaFQ=",
+  "dgSpecHash": "E4WTiR+ZNf0=",
   "success": true,
   "projectFilePath": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\BookService\\BookService.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
