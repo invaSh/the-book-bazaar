@@ -1,0 +1,45 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace BookService.Migrations
+{
+    /// <inheritdoc />
+    public partial class Initial : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uuid", nullable: false),
+                    ISBN = table.Column<string>(type: "text", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Author = table.Column<string>(type: "text", nullable: true),
+                    Publisher = table.Column<string>(type: "text", nullable: true),
+                    PublicationYear = table.Column<int>(type: "integer", nullable: false),
+                    Genre = table.Column<int>(type: "integer", nullable: false),
+                    Format = table.Column<string>(type: "text", nullable: true),
+                    PageNumber = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Condition = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.ID);
+                });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Books");
+        }
+    }
+}

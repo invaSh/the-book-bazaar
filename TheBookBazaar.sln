@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{422F41AF-C43E-4329-868B-80EE006B19DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService", "src\BookService\BookService.csproj", "{93FFC0F0-9182-442F-A8FC-156C7E685DA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93FFC0F0-9182-442F-A8FC-156C7E685DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93FFC0F0-9182-442F-A8FC-156C7E685DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93FFC0F0-9182-442F-A8FC-156C7E685DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93FFC0F0-9182-442F-A8FC-156C7E685DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93FFC0F0-9182-442F-A8FC-156C7E685DA4} = {422F41AF-C43E-4329-868B-80EE006B19DC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02642870-5F22-44FF-AC7C-A95C3141FC4C}
+	EndGlobalSection
+EndGlobal
