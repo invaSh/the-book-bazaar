@@ -1,4 +1,5 @@
 ﻿using BookService.Application.Commands;
+using BookService.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,34 @@ namespace BookService.API.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetBooks()
+        {
+            var books = await _mediator.Send(new GetBooks());
+            return Ok(books);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBook(Guid id)
+        {
+            var book = await _mediator.Send(new GetBook { Id = id });
+            if (book == null) return NotFound("Book couldn't be found!");
+            return Ok(book);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBook(CreateBook command)
         {
             var bookId = await _mediator.Send(command);
-            return Ok(new { message = "Book added successfully!", result = bookId });
+            return Ok(new { message = "Book added successfully!", response = bookId });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(Guid id, UpdateBook command)
+        {
+            command.Id = id;
+            var book = await _mediator.Send(command);
+            return Ok(new { message = "Book updated successfully!", response = book });
         }
     }
 }

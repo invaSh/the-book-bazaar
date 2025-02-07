@@ -1,9 +1,8 @@
 ﻿using BookService.Domain;
-using MediatR;
 
-namespace BookService.Application.Commands
+namespace BookService.Application.DTOs
 {
-    public class CreateBook : IRequest <Guid>
+    public class Guid
     {
         public string ISBN { get; set; }
         public string Title { get; set; }
@@ -15,7 +14,7 @@ namespace BookService.Application.Commands
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
         public string Description { get; set; }
-        public BookCondition Condition { get; set; }
-        public List<int> GenreIds { get; set; }
+        public string Condition { get; set; }
+        public List<string> Genres { get; set; }
     }
 }

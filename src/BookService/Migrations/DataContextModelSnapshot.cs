@@ -22,6 +22,21 @@ namespace BookService.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("GenresId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("BooksId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("BookGenre");
+                });
+
             modelBuilder.Entity("BookService.Domain.Book", b =>
                 {
                     b.Property<Guid>("Id")
@@ -39,9 +54,6 @@ namespace BookService.Migrations
 
                     b.Property<string>("Format")
                         .HasColumnType("text");
-
-                    b.Property<int>("Genre")
-                        .HasColumnType("integer");
 
                     b.Property<string>("ISBN")
                         .HasColumnType("text");
@@ -67,6 +79,37 @@ namespace BookService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookService.Domain.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("BookGenre", b =>
+                {
+                    b.HasOne("BookService.Domain.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookService.Domain.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
