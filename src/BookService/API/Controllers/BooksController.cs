@@ -46,5 +46,12 @@ namespace BookService.API.Controllers
             var book = await _mediator.Send(command);
             return Ok(new { message = "Book updated successfully!", response = book });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(Guid id)
+        {
+            var book = await _mediator.Send(new DeleteBook { Id = id });
+            return Ok(new { message = "Book deleted successfully!", response = book });
+        }
     }
 }

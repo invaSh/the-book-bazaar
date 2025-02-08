@@ -17,7 +17,9 @@ namespace BookService.Application.Commands.Handlers
         }
         public async Task<Guid> Handle(UpdateBook request, CancellationToken cancellationToken)
         {
-            var book = await _context.Books.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var book = await _context.Books
+                .Include(b => b.Genres)
+                .FirstOrDefaultAsync(x => x.Id == request.Id);
             if (book == null) throw new Exception("Book doesn't exist!");
             _mapper.Map(request, book);
             var genres = await _context.Genres
@@ -27,8 +29,9 @@ namespace BookService.Application.Commands.Handlers
             book.Genres.Clear();
             foreach (var genre in genres)
             {
-                book.Genres.Add(genre); // Add new genres
+                book.Genres.Add(genre);
             }
+            _context.Books.Update(book);
             var result = await _context.SaveChangesAsync() > 0;
             if (!result) throw new Exception("Problem updating the book!");
             return book.Id;
