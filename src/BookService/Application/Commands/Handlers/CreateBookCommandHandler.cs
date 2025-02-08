@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BookService.Domain;
 using BookService.Infrastructure.Data;
+using Contracts.Books;
+using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -11,10 +13,12 @@ namespace BookService.Application.Commands.Handlers
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public CreateBookCommandHandler(DataContext context, IMapper mapper)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public CreateBookCommandHandler(DataContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _context = context;
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
         public async Task<Guid> Handle(CreateBook request, CancellationToken cancellationToken)
         {
@@ -30,6 +34,7 @@ namespace BookService.Application.Commands.Handlers
                 book.Genres.Add(genre);
             }
             await _context.SaveChangesAsync(cancellationToken);
+            await _publishEndpoint.Publish(_mapper.Map<BookCreated>(book));
             return book.Id;
         }
 

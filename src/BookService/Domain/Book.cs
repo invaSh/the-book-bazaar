@@ -17,7 +17,6 @@ namespace BookService.Domain
         public string Description { get; set; }
         public BookCondition Condition { get; set; }
         public ICollection<Genre> Genres { get; set; }
-
     }
 
 

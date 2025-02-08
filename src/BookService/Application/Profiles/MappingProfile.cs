@@ -2,6 +2,7 @@
 using BookService.Domain;
 using AutoMapper;
 using BookService.Application.DTOs;
+using Contracts.Books;
 
 
 namespace BookService.Application.Profiles
@@ -16,7 +17,8 @@ namespace BookService.Application.Profiles
             CreateMap<Genre, GenreDto>()
                 .ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.Books.Select(b => b.Title).ToList()));
             CreateMap<UpdateBook, Book>()
-                .ForMember(dest => dest.Genres, opt => opt.Ignore()); // Prevent AutoMapper from incorrectly mapping List<int> to List<Genre>
+                .ForMember(dest => dest.Genres, opt => opt.Ignore());
+            CreateMap<Book, BookCreated>();
 
         }
     }

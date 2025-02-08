@@ -134,3 +134,9 @@ C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBo
 C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\obj\Debug\net8.0\BookService.sourcelink.json
 C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\MassTransit.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\MassTransit.Abstractions.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\MassTransit.RabbitMqTransport.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\RabbitMQ.Client.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\Contracts.dll
+C:\Users\Admin\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\src\BookService\bin\Debug\net8.0\Contracts.pdb
