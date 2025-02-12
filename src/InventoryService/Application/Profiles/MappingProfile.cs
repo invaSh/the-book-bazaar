@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.Books;
+using InventoryService.Application.Commands;
 using InventoryService.Domain;
 
 namespace InventoryService.Application.Profiles
@@ -9,6 +10,7 @@ namespace InventoryService.Application.Profiles
         public MappingProfile()
         {
             CreateMap<BookCreated, Book>();
+            CreateMap<UpdateInventory, InventoryItem>();
         }
     }
 }

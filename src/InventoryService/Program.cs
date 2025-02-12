@@ -7,11 +7,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(o =>
 {
-    o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    o.UseNpgsql(connectionString);
 });
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<BookCreatedConsumer>();

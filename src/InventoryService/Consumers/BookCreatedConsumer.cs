@@ -23,7 +23,6 @@ namespace InventoryService.Consumers
             var inventoryItem = new InventoryItem
             {
                 BookId = book.Id,
-                QuantityAvailable = 1,
                 LastRestocked = DateTime.UtcNow,
             };
             _context.InventoryItems.Add(inventoryItem);
