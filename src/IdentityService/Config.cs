@@ -26,7 +26,7 @@ public static class Config
                 ClientId = "book_bazaar_client",
                 ClientName = "book_bazaar_client",
                 AllowedGrantTypes = GrantTypes.Code,
-                RedirectUris = { "https://localhost:5173/signin-oidc" },
+                RedirectUris = { "https://localhost:5173/" },
                 PostLogoutRedirectUris = { "https://localhost:5173/" },
                 AllowedCorsOrigins = { "https://localhost:5173" },
                 AllowedScopes = { "openid", "profile", "email", "book_bazaar" },
