@@ -13,6 +13,51 @@ services:
         ports:
             - 5672:5672
             - 15672:15672
+    book-svc:
+        image: invaSh/book-svc:latest
+        build:
+            context: .
+            dockerfile: src/BookService/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+            - RabbitMq__Host=rabbitmq
+            - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=123456;Database=books;
+        ports:
+            - 7002:80
+        depends_on:
+            - postgres
+            - rabbitmq
+    inventory-svc:
+        image: invaSh/inventory-svc:latest
+        build:
+            context: .
+            dockerfile: src/InventoryService/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+            - RabbitMq__Host=rabbitmq
+            - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=123456;Database=inventory;
+        ports:
+            - 7003:80
+        depends_on:
+            - postgres
+            - rabbitmq
+    order-svc:
+        image: invaSh/book-svc:latest
+        build:
+            context: .
+            dockerfile: src/BookService/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+            - RabbitMq__Host=rabbitmq
+            - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=123456;Database=orders;
+        ports:
+            - 7004:80
+        depends_on:
+            - postgres
+            - rabbitmq
 volumes:
     pgdata:            
       
