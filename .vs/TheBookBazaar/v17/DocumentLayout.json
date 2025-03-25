@@ -1,0 +1,123 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|c:\\users\\admin\\desktop\\projekte\\.net_cqrs_mediatr_react.js_the_book_bazaar\\thebookbazaar\\src\\authenticationservice\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|solutionrelative:src\\authenticationservice\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|c:\\users\\admin\\desktop\\projekte\\.net_cqrs_mediatr_react.js_the_book_bazaar\\thebookbazaar\\src\\authenticationservice\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|solutionrelative:src\\authenticationservice\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|c:\\users\\admin\\desktop\\projekte\\.net_cqrs_mediatr_react.js_the_book_bazaar\\thebookbazaar\\src\\authenticationservice\\models\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|solutionrelative:src\\authenticationservice\\models\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|c:\\users\\admin\\desktop\\projekte\\.net_cqrs_mediatr_react.js_the_book_bazaar\\thebookbazaar\\src\\authenticationservice\\viewmodels\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|solutionrelative:src\\authenticationservice\\viewmodels\\authresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|c:\\users\\admin\\desktop\\projekte\\.net_cqrs_mediatr_react.js_the_book_bazaar\\thebookbazaar\\src\\authenticationservice\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}|src\\AuthenticationService\\AuthenticationService.csproj|solutionrelative:src\\authenticationservice\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 245,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "src\\AuthenticationService\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\appsettings.Development.json",
+              "RelativeToolTip": "src\\AuthenticationService\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-25T15:21:29.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\ViewModels\\AuthResponse.cs",
+              "RelativeDocumentMoniker": "src\\AuthenticationService\\ViewModels\\AuthResponse.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\ViewModels\\AuthResponse.cs",
+              "RelativeToolTip": "src\\AuthenticationService\\ViewModels\\AuthResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T14:53:13.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Models\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "src\\AuthenticationService\\Models\\RefreshToken.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Models\\RefreshToken.cs",
+              "RelativeToolTip": "src\\AuthenticationService\\Models\\RefreshToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T14:45:27.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Services\\TokenService.cs",
+              "RelativeDocumentMoniker": "src\\AuthenticationService\\Services\\TokenService.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Services\\TokenService.cs",
+              "RelativeToolTip": "src\\AuthenticationService\\Services\\TokenService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAABcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T14:12:16.405Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "src\\AuthenticationService\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\projekte\\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\\TheBookBazaar\\src\\AuthenticationService\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "src\\AuthenticationService\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T13:58:33.288Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 155,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
