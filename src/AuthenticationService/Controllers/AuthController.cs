@@ -15,13 +15,11 @@ namespace AuthenticationService.Controllers
         private readonly TokenService _tokenService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _config;
         public AuthController(TokenService tokenService, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
             _tokenService = tokenService;
             _userManager = userManager;
             _signInManager = signInManager;
-            _config = config;
         }
 
         [HttpPost("sign-in")]
@@ -40,15 +38,45 @@ namespace AuthenticationService.Controllers
             var refreshToken = tokens.RefreshToken;
             var accessToken = tokens.AccessToken;
 
-            Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+            Response.Cookies.Append("jwt", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = false,
-                SameSite = SameSiteMode.Lax,
-                Expires = DateTime.Now.AddMinutes(Convert.ToDouble(_config["JwtSettings:RefreshTokenExpiry"]))
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(Convert.ToDouble(
+                    Environment.GetEnvironmentVariable("Jwt__RefreshTokenExpiryDays")))
             }); 
 
             return Ok(new { AccessToken = accessToken });
         }
+
+        [HttpPost("sign-out")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("refreshToken");
+            return Ok();
+        }
+
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh()
+        {
+            var refreshToken = Request.Cookies["jwt"];
+            if (refreshToken == null) return Unauthorized( new { message = "Refresh token null, Please log in again!"});
+
+            var verifyToken = await _tokenService.VerifyRefreshToken(refreshToken);
+            if (verifyToken == null) return Unauthorized(new { message = "Verify token null, Please log in again!" });
+
+            if (verifyToken.Expires < DateTime.UtcNow) return Unauthorized(new { message = "Your session has expired. Please log in again." });
+
+            var user = await _userManager.FindByIdAsync(verifyToken.UserId);
+            if (user == null) return Unauthorized(new { message = "User null, Please log in again!" });
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var accessToken = _tokenService.GenerateAccessToken(user, roles);
+
+            return Ok(new { AccessToken = accessToken });
+        }
+
     }
 }

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { NavLink } from 'react-router-dom';
 export const LogoOne = () => {
   return (
@@ -36,4 +35,33 @@ export const LogoTwo = () => {
       </NavLink>
     </div>
   );
-}
+};
+
+export const LogoThree = () => {
+  return (
+    <div className="flex-shrink-0 flex items-center">
+      <NavLink to="/" className="flex items-center group">
+        <span className="text-lg md:text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-goldFoiling to-creamParchment">
+          <span className="italic font-light text-creamParchment/90">The</span>{' '}
+          <span className="ml-1">Book</span>{' '}
+          <span className="ml-1">Bazaar</span>
+        </span>
+      </NavLink>
+    </div>
+  );
+};
+
+
+
+export const LogoFour = () => {
+  return (
+    <div className="flex items-center justify-center w-full">
+      <NavLink
+        to="/"
+        className="text-2xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-goldFoiling to-creamParchment"
+      >
+        TBB
+      </NavLink>
+    </div>
+  );
+};

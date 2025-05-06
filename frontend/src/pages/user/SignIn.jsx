@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../../contexts/authContext';
 import { Mail, Lock, Eye, EyeOff, BookOpen } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -13,8 +13,9 @@ function SignInPage() {
   } = useForm();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const { login } = useAuth();
   const onSubmit = async (data) => {
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/sign-in`,
@@ -32,6 +33,9 @@ function SignInPage() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      const result = await response.json()
+
+      login(result.accessToken);
       toast.success('Successfully logged in!');
       navigate('/');
     } catch (e) {
@@ -54,7 +58,10 @@ function SignInPage() {
               <div className="w-14 sm:w-16 h-1 bg-lightBlue mx-auto mt-2 rounded-full"></div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-5 font-body">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-3 sm:space-y-5 font-body"
+            >
               {/* Email */}
               <div className="relative">
                 <div className="relative">
@@ -72,7 +79,11 @@ function SignInPage() {
                     })}
                   />
                 </div>
-                {errors.email && <p className="text-xs sm:text-sm text-red-600 mt-1">{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="text-xs sm:text-sm text-red-600 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* Password */}
@@ -96,10 +107,18 @@ function SignInPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-mutedSlate hover:text-lightBlue transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />
+                    ) : (
+                      <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
+                    )}
                   </button>
                 </div>
-                {errors.password && <p className="text-xs sm:text-sm text-red-600 mt-1">{errors.password.message}</p>}
+                {errors.password && (
+                  <p className="text-xs sm:text-sm text-red-600 mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               {/* Submit */}
@@ -116,7 +135,10 @@ function SignInPage() {
 
             <p className="text-center text-mutedSlate mt-4 sm:mt-5 text-xs sm:text-sm font-body">
               New here?{' '}
-              <a href="/signup" className="text-lightBlue hover:text-richNavy underline hover:no-underline transition-colors">
+              <a
+                href="/signup"
+                className="text-lightBlue hover:text-richNavy underline hover:no-underline transition-colors"
+              >
                 Create an account
               </a>
             </p>

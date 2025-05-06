@@ -3,6 +3,7 @@ using AuthenticationService.Models;
 using AuthenticationService.ViewModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,21 +14,21 @@ namespace AuthenticationService.Services
 {
     public class TokenService
     {
-        private readonly IConfiguration _configuration;
         private readonly DataContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public TokenService(DataContext context, IConfiguration configuration, UserManager<User> userManager)
+        public TokenService(DataContext context, IConfiguration configuration, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _context = context;
-            _configuration = configuration;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<AuthResponse> GenerateTokens(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
-            var accessToken = GenerateAccessToken(user, roles);
+            var accessToken = await GenerateAccessToken(user, roles);
             var refreshToken = GenerateRefreshToken(user);
 
             var oldTokens = _context.RefreshTokens
@@ -44,7 +45,7 @@ namespace AuthenticationService.Services
             };
         }
 
-        private string GenerateAccessToken(User user, IList<string> roles)
+        public async Task<string> GenerateAccessToken(User user, IList<string> roles)
         {
             var claims = new List<Claim>
             {
@@ -54,18 +55,22 @@ namespace AuthenticationService.Services
                 new Claim("fullName", user.FullName) 
             };
 
-            foreach (var role in roles)
+            foreach (var roleName in roles)
             {
-                claims.Add(new Claim("role", role));
+                var role = await _roleManager.FindByNameAsync(roleName);
+                claims.Add(new Claim("role", role.Index.ToString()));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
+            var secretKey = Environment.GetEnvironmentVariable("Jwt__SecretKey");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:TokenExpiry"]));
+            var expires = DateTime.Now.AddMinutes(Convert.ToDouble(
+                Environment.GetEnvironmentVariable("Jwt__AccessTokenExpiryMinutes")));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:ValidIssuer"],
-                audience: _configuration["JwtSettings:ValidAudience"],
+                issuer: Environment.GetEnvironmentVariable("Jwt__ValidIssuer"),
+                audience: Environment.GetEnvironmentVariable("Jwt__ValidAudience"),
                 claims: claims,
                 expires: expires,
                 signingCredentials: creds
@@ -75,17 +80,31 @@ namespace AuthenticationService.Services
 
         }
 
-        private RefreshToken GenerateRefreshToken(User user)
+        public RefreshToken GenerateRefreshToken(User user)
         {
             return new RefreshToken
             {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.UtcNow.AddDays(
-                    Convert.ToDouble(_configuration["JwtSettings:RefreshTokenExpiry"])),
+                Expires = DateTime.UtcNow.AddDays(Convert.ToDouble(
+                Environment.GetEnvironmentVariable("Jwt__RefreshTokenExpiryDays"))),
                 Created = DateTime.UtcNow  ,
                 UserId = user.Id,
                 User = user
             };
         }
+
+        public async Task<RefreshToken> VerifyRefreshToken(string refreshToken)
+        {
+            Console.WriteLine($"Refresh token from cookie: {refreshToken}");
+            var tokenEntry = await _context.RefreshTokens.Include(x => x.User).FirstOrDefaultAsync(x => x.Token == refreshToken);
+            if (tokenEntry == null) return null;
+            return tokenEntry;
+        }
+
+        public void GetJwtData(string jwtToken) 
+        {
+
+        }
+
     }
 }

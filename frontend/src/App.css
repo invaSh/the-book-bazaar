@@ -1,2 +1,12 @@
 
 @import "tailwindcss";
+
+
+@theme{
+  --color-richNavy: #1C2A39;
+  --color-paleRose: #FFD1DC;
+  --color-creamParchment: #F5F0E6;
+  --color-mutedSlate: #6B7280;
+  /* --color-goldFoiling: #D4AF37; */
+
+}
