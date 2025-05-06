@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,15 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddScoped<TokenService>();
 
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+
+
+var envPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.FullName, "..", "..", "..", ".env");
+DotNetEnv.Env.Load(envPath);
+
+var jwtSettings = new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .Build();
+
 builder.Services.AddAuthentication(o =>
 {
     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -44,10 +53,11 @@ builder.Services.AddAuthentication(o =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["ValidIssuer"],
-            ValidAudience = jwtSettings["ValidAudience"],
+            ValidIssuer = jwtSettings["Jwt__ValidIssuer"],
+            ValidAudience = jwtSettings["Jwt__ValidAudience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]))
+                Encoding.UTF8.GetBytes(jwtSettings["Jwt__SecretKey"]))
+
         };
     });
 
