@@ -43,8 +43,8 @@ namespace AuthenticationService.Controllers
             Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict,
+                Secure = false,
+                SameSite = SameSiteMode.Lax,
                 Expires = DateTime.Now.AddMinutes(Convert.ToDouble(_config["JwtSettings:RefreshTokenExpiry"]))
             }); 
 

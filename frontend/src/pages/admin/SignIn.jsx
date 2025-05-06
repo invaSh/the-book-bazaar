@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { getUserData } from '../utils/auth'; 
 import { LogoTwo } from '../components/Logo'; 
@@ -12,7 +11,6 @@ function SignIn() {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -31,19 +29,15 @@ function SignIn() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const { accessToken } = await response.json();
-      localStorage.setItem('token', accessToken);
+      const result = await response.json(); // <- this is probably what's missing
 
-      const user = getUserData();
+      console.log(result); // e.g. { accessToken: "..." }
+      toast.success('Logged in!!');
+  
 
-      if (user?.roles[0] === 'User') {
-        toast.error('User does not exist!');
-        localStorage.removeItem('token');
-        return;
-      }
 
-      toast.success('Successfully logged in!');
-      navigate('/admin');
+      console.log(response);
+      
     } catch (e) {
       console.error(e);
       toast.error('Login failed!');
