@@ -1,4 +1,6 @@
-﻿namespace AuthenticationService.ViewModels
+﻿using AuthenticationService.Models;
+
+namespace AuthenticationService.ViewModels
 {
     public class AuthResponse
     {

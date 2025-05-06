@@ -15,20 +15,20 @@ namespace AuthenticationService.Data
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
 
-            var roles = new (string Name, int Index)[]
+            var roles = new (string Name, int Index, string Email, string UserName, string FullName)[]
             {
-                ("Admin", 1),
-                ("TechSupport", 2),
-                ("Agent", 3),
-                ("Merchant", 4),
-                ("User", 5)
+                ("Admin", 1, "admin@tbb.com", "tbb_admin", "Administrator"),
+                ("TechSupport", 2, "support@tbb.com", "tbb_support", "Tech Support"),
+                ("Agent", 3, "agent@tbb.com", "tbb_agent", "Agent User"),
+                ("Merchant", 4, "merchant@tbb.com", "tbb_merchant", "Merchant User"),
+                ("User", 5, "user@tbb.com", "tbb_user", "Regular User")
             };
 
             foreach (var role in roles)
             {
-                var exists = await roleManager.RoleExistsAsync(role.Name);
+                var roleExists = await roleManager.RoleExistsAsync(role.Name);
 
-                if (!exists)
+                if (!roleExists)
                 {
                     var newRole = new Role
                     {
@@ -37,16 +37,16 @@ namespace AuthenticationService.Data
                         Index = role.Index
                     };
 
-                    var result = await roleManager.CreateAsync(newRole);
+                    var roleResult = await roleManager.CreateAsync(newRole);
 
-                    if (result.Succeeded)
+                    if (roleResult.Succeeded)
                     {
                         Console.WriteLine($"Created role: {role.Name} with index: {role.Index}");
                     }
                     else
                     {
                         Console.WriteLine($"Failed to create role {role.Name}:");
-                        foreach (var error in result.Errors)
+                        foreach (var error in roleResult.Errors)
                         {
                             Console.WriteLine($"- {error.Description}");
                         }
@@ -56,40 +56,38 @@ namespace AuthenticationService.Data
                 {
                     Console.WriteLine($"Role {role.Name} already exists");
                 }
-            }
 
-            var adminEmail = "admin@tbb.com";
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-            if (adminUser == null)
-            {
-                var newAdmin = new User
+                var userExists = await userManager.FindByEmailAsync(role.Email);
+                if (userExists == null)
                 {
-                    Email = adminEmail,
-                    UserName = "tbb_admin",
-                    FullName = "Administrator",
-                    EmailConfirmed = true,
-                };
+                    var newUser = new User
+                    {
+                        Email = role.Email,
+                        UserName = role.UserName,
+                        FullName = role.FullName,
+                        EmailConfirmed = true,
+                    };
 
-                var result = await userManager.CreateAsync(newAdmin, "Admin@123"); 
+                    var userResult = await userManager.CreateAsync(newUser, "Password@123");
 
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(newAdmin, "Admin");
-                    Console.WriteLine("Admin user created and added to Admin role.");
+                    if (userResult.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(newUser, role.Name);
+                        Console.WriteLine($"User {role.UserName} created and added to {role.Name} role.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to create user {role.UserName}:");
+                        foreach (var error in userResult.Errors)
+                        {
+                            Console.WriteLine($"- {error.Description}");
+                        }
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Failed to create admin user:");
-                    foreach (var error in result.Errors)
-                    {
-                        Console.WriteLine($"- {error.Description}");
-                    }
+                    Console.WriteLine($"User {role.UserName} already exists.");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Admin user already exists.");
             }
         }
     }

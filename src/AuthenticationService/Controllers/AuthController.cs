@@ -15,11 +15,13 @@ namespace AuthenticationService.Controllers
         private readonly TokenService _tokenService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AuthController(TokenService tokenService, UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IConfiguration _config;
+        public AuthController(TokenService tokenService, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
             _tokenService = tokenService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _config = config;
         }
 
         [HttpPost("sign-in")]
@@ -35,11 +37,18 @@ namespace AuthenticationService.Controllers
 
             var tokens = await _tokenService.GenerateTokens(user);
 
-            return Ok(new
+            var refreshToken = tokens.RefreshToken;
+            var accessToken = tokens.AccessToken;
+
+            Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
             {
-                accessToken = tokens.AccessToken,
-                refreshToken = tokens.RefreshToken
-            });
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.Now.AddMinutes(Convert.ToDouble(_config["JwtSettings:RefreshTokenExpiry"]))
+            }); 
+
+            return Ok(new { AccessToken = accessToken });
         }
     }
 }
