@@ -9,7 +9,7 @@ import AdminSignIn from './pages/admin/SignIn';
 import AdminHome from './pages/admin/Home';
 import AdminLayout from './layout/admin/Layout';
 import UserLayout from './layout/user/Layout'
-
+import { AdminKitToaster } from './components/Toast';
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -46,7 +46,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 function App() {
   return (
     <Router>
-      <Toaster />
+      <AdminKitToaster />
       <Routes>
         <Route path="/sign-in" element={<PublicRoute><UserSignIn /></PublicRoute>}/>
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>

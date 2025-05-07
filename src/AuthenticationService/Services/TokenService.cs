@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -101,9 +102,22 @@ namespace AuthenticationService.Services
             return tokenEntry;
         }
 
-        public void GetJwtData(string jwtToken) 
+        public async Task  DeleteSession(string refreshToken) 
         {
+            var tokens = await _context.RefreshTokens
+                .Where(rt => rt.Token == refreshToken)
+                .ToListAsync();
 
+            foreach (var token in tokens)
+            {
+                Console.WriteLine($"=========================>Token after fetcching in delete session: {token}");
+
+            }
+            if (tokens.Any())
+            {
+                _context.RefreshTokens.RemoveRange(tokens);
+                await _context.SaveChangesAsync();
+            }
         }
 
     }

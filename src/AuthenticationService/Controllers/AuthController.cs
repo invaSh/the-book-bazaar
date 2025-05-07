@@ -38,7 +38,7 @@ namespace AuthenticationService.Controllers
             var refreshToken = tokens.RefreshToken;
             var accessToken = tokens.AccessToken;
 
-            Response.Cookies.Append("jwt", refreshToken, new CookieOptions
+            Response.Cookies.Append("token", refreshToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
@@ -51,17 +51,25 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("sign-out")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            Response.Cookies.Delete("refreshToken");
-            return Ok();
+            Console.WriteLine($"================================>Deleting refresh token...");
+            var refreshToken = Request.Cookies["token"];
+            Console.WriteLine($"================================>Refresh token: {refreshToken}");
+            if (!string.IsNullOrEmpty(refreshToken))
+            {
+                await _tokenService.DeleteSession(refreshToken);
+                Response.Cookies.Delete("token");
+            }
+            Console.WriteLine($"=========================>Cookie after deletion: {Request.Cookies["token"]}");
+            return Ok("Sign out successful!");
         }
 
 
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh()
         {
-            var refreshToken = Request.Cookies["jwt"];
+            var refreshToken = Request.Cookies["token"];
             if (refreshToken == null) return Unauthorized( new { message = "Refresh token null, Please log in again!"});
 
             var verifyToken = await _tokenService.VerifyRefreshToken(refreshToken);

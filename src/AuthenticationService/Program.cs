@@ -38,25 +38,7 @@ DotNetEnv.Env.Load(envPath);
 
 builder.Configuration.AddEnvironmentVariables();
 
-// Debug: Is ENV var even loaded?
-Console.WriteLine("From Environment.GetEnvironmentVariable:");
-Console.WriteLine("Jwt__SecretKey: " + Environment.GetEnvironmentVariable("Jwt__SecretKey"));
-
-// Debug: Is it inside builder.Configuration?
-Console.WriteLine("From builder.Configuration:");
-Console.WriteLine("Jwt__SecretKey: " + builder.Configuration["Jwt__SecretKey"]);
-
 var jwtSettings = builder.Configuration;
-
-//if (string.IsNullOrWhiteSpace(jwtSettings["Jwt__SecretKey"]))
-//    throw new Exception("Missing Jwt__SecretKey from configuration.");
-
-//if (string.IsNullOrWhiteSpace(jwtSettings["Jwt__ValidIssuer"]))
-//    throw new Exception("Missing Jwt__ValidIssuer from configuration.");
-
-//if (string.IsNullOrWhiteSpace(jwtSettings["Jwt__ValidAudience"]))
-//    throw new Exception("Missing Jwt__ValidAudience from configuration.");
-
 
 builder.Services.AddAuthentication(o =>
 {

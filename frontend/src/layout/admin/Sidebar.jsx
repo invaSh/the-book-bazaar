@@ -38,7 +38,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
       <div className="flex flex-col h-full">
         <div className="px-4 border-b border-richNavy/50">
           <div className="flex items-center justify-between min-h-[56px]">
-            <div className="flex items-center gap-x-2 w-full overflow-hidden">
+            <div className="flex items-center gap-x-2 w-full md:mt-3 overflow-hidden">
               {isOpen ? <LogoThree /> : <LogoFour />}
             </div>
             <button
