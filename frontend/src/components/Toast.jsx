@@ -79,10 +79,3 @@ export const AdminKitToaster = () => (
     {(t) => <AdminToast t={t} message={t.message} type={t.type} />}
   </Toaster>
 );
-
-export const notify = {
-  success: (msg) => toast.success(msg),
-  error: (msg) => toast.error(msg),
-  loading: (msg) => toast.loading(msg),
-  dismiss: (id) => toast.dismiss(id),
-};

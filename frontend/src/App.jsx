@@ -50,14 +50,22 @@ function App() {
       <Routes>
         <Route path="/sign-in" element={<PublicRoute><UserSignIn /></PublicRoute>}/>
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>
-        <Route path="/"  element={ <ProtectedRoute allowedRoles={[4, 5]}><UserHome /></ProtectedRoute>}/>
+        
+
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={[1, 2, 3]}>
             <AdminLayout />
-          </ProtectedRoute>
-        }>
+          </ProtectedRoute>}>
           <Route index element={<AdminHome />} />
         </Route>
+        
+        <Route path="/"  element={ 
+          <ProtectedRoute allowedRoles={[4, 5]}>
+            <UserLayout />
+          </ProtectedRoute>}>
+          <Route index element={<UserHome />} />
+        </Route>
+        
       </Routes>
     </Router>
   );

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { notify } from '../components/Toast';
+import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
 
@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    const loading = toast.loading('Signing you out..')
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/sign-out`, {
         method: 'POST',
@@ -22,10 +23,10 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (!res.ok) {
-        notify.error('Error signing out');
+        toast.error('Error signing out', { id: loading });
         return;
       }
-      notify.success('Sign out successful!')
+      toast.success('Sign out successful!', { id: loading })
     } catch (error) {
       console.error('Logout request failed:', error);
     }
