@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
           }
         );
         if (!res.ok) {
-          console.log('Refresh failed!');
+          // console.log('Refresh failed!');
           return;
         }
         const data = await res.json();
