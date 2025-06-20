@@ -15,11 +15,14 @@ namespace AuthenticationService.Controllers
         private readonly TokenService _tokenService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public AuthController(TokenService tokenService, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        private readonly RoleManager<Role> _roleManager;
+
+        public AuthController(TokenService tokenService, UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, RoleManager<Role> roleManager)
         {
             _tokenService = tokenService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("sign-up")]
@@ -42,6 +45,10 @@ namespace AuthenticationService.Controllers
             var result = await _userManager.CreateAsync(user, req.Password);
 
             if (!result.Succeeded) return BadRequest(result.Errors);
+
+            var role = _roleManager.Roles.FirstOrDefault(r => r.Index == 5);
+            if (role == null) return BadRequest("Something went wrong.");
+            await _userManager.AddToRoleAsync(user, role.Name);
 
             return Created("", new {user.Email, user.UserName, user.FullName});
         }
