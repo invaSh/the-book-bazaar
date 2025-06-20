@@ -10,6 +10,7 @@ import AdminHome from './pages/admin/Home';
 import AdminLayout from './layout/admin/Layout';
 import UserLayout from './layout/user/Layout'
 import { AdminKitToaster } from './components/Toast';
+import SignUp from './pages/user/SignUp';
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -49,6 +50,7 @@ function App() {
       <AdminKitToaster />
       <Routes>
         <Route path="/sign-in" element={<PublicRoute><UserSignIn /></PublicRoute>}/>
+        <Route path='/sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>
         
 
