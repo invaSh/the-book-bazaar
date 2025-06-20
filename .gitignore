@@ -15,3 +15,4 @@
 
 # Ignore temp files
 *.tmp
+**/obj/**/Debug/net8.0/*.assets.cache
