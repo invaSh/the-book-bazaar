@@ -22,6 +22,30 @@ namespace AuthenticationService.Controllers
             _signInManager = signInManager;
         }
 
+        [HttpPost("sign-up")]
+        public async Task<IActionResult> SignUp(SignUpRequest req)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var emailCheck = await _userManager.FindByEmailAsync(req.Email);
+            if (emailCheck != null) return BadRequest("Email is taken!");
+            var nameCheck = await _userManager.FindByNameAsync(req.UserName);
+            if (nameCheck != null) return BadRequest("Username is taken!");
+            if (req.Password != req.ConfirmPassword) return BadRequest("Passwords do not match!");
+
+            var user = new User
+            {
+                UserName = req.UserName,
+                FullName = req.Email,
+                Email = req.Email,
+            };
+
+            var result = await _userManager.CreateAsync(user, req.Password);
+
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            return Created("", new {user.Email, user.UserName, user.FullName});
+        }
+
         [HttpPost("sign-in")]
         public async Task<IActionResult> SignIn (LoginRequest req)
         {
