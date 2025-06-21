@@ -7,7 +7,7 @@ function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col bg-creamParchment">
       <Navbar />
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow font-poppins">{children}</main>
       <Footer />
     </div>
   );

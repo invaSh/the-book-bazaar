@@ -90,7 +90,7 @@ function SignUpPage() {
       setStatus('success');
 
       setTimeout(() => {
-        navigate('/');
+        navigate('/activity');
       }, 3000);
     } catch (e) {
       console.error(e);
