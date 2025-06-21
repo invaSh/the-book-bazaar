@@ -12,6 +12,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../contexts/authContext';
 
 // Animation variants
 const containerVariants = {
@@ -68,7 +69,7 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [status, setStatus] = useState('idle');
-
+  const { login } = useAuth()
   const password = watch('password');
 
   const onSubmit = async (data) => {
@@ -86,7 +87,8 @@ function SignUpPage() {
 
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
-      await response.json();
+      const token = await response.json();
+      login(token.accessToken)
       setStatus('success');
 
       setTimeout(() => {

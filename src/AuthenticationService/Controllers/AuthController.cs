@@ -137,7 +137,7 @@ namespace AuthenticationService.Controllers
             var role = _roleManager.Roles.FirstOrDefault(r => r.Index == activity);
             if (role == null) return BadRequest("Something went wrong.");
             await _userManager.AddToRoleAsync(user, role.Name);
-            return Ok(user);
+            return Ok(activity);
         }
     }
 }
