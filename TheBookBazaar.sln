@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService", "src\Inv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C391848-1552-47F1-863A-548BA517E66D}"
 	ProjectSection(SolutionItems) = preProject
-		src\AuthenticationService\.env = src\AuthenticationService\.env
+		..\..\..\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\.env = ..\..\..\Desktop\projekte\.NET_CQRS_MediatR_React.js_The_Book_Bazaar\TheBookBazaar\.env
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
