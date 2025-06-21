@@ -1,10 +1,14 @@
 ﻿using AuthenticationService.Data;
 using AuthenticationService.Models;
 using AuthenticationService.Services;
+using AuthenticationService.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using AuthenticationService.Migrations;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace AuthenticationService.Controllers
 {
@@ -46,11 +50,18 @@ namespace AuthenticationService.Controllers
 
             if (!result.Succeeded) return BadRequest(result.Errors);
 
-            var role = _roleManager.Roles.FirstOrDefault(r => r.Index == 5);
-            if (role == null) return BadRequest("Something went wrong.");
-            await _userManager.AddToRoleAsync(user, role.Name);
+            var tokens = await _tokenService.GenerateTokens(user);
 
-            return Created("", new {user.Email, user.UserName, user.FullName});
+            Response.Cookies.Append("token", tokens.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(Convert.ToDouble(
+                    Environment.GetEnvironmentVariable("Jwt__RefreshTokenExpiryDays")))
+            });
+
+            return Ok(new { AccessToken = tokens.AccessToken });
         }
 
         [HttpPost("sign-in")]
@@ -117,5 +128,16 @@ namespace AuthenticationService.Controllers
             return Ok(new { AccessToken = accessToken });
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("select-activity/{activity}")]
+        public async Task<IActionResult> SelectActivity(int activity)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var role = _roleManager.Roles.FirstOrDefault(r => r.Index == activity);
+            if (role == null) return BadRequest("Something went wrong.");
+            await _userManager.AddToRoleAsync(user, role.Name);
+            return Ok(user);
+        }
     }
 }

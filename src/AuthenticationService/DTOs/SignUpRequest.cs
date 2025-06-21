@@ -1,4 +1,4 @@
-﻿namespace AuthenticationService.Models
+﻿namespace AuthenticationService.DTOs
 {
     public class SignUpRequest
     {

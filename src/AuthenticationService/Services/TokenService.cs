@@ -1,6 +1,6 @@
 ﻿using AuthenticationService.Data;
 using AuthenticationService.Models;
-using AuthenticationService.ViewModels;
+using AuthenticationService.DTOs;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

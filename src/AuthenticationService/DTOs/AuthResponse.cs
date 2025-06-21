@@ -1,6 +1,6 @@
 ﻿using AuthenticationService.Models;
 
-namespace AuthenticationService.ViewModels
+namespace AuthenticationService.DTOs
 {
     public class AuthResponse
     {
