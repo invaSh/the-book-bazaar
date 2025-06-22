@@ -45,10 +45,9 @@ const itemVariants = {
 
 const Activity = () => {
   const navigate = useNavigate();
-  const { accessToken } = useAuth();
+  const { accessToken, login } = useAuth();
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [status, setStatus] = useState('idle'); // 'idle', 'loading', 'success'
-console.log(accessToken);
 
   const handleSelection = async (activity) => {
     setSelectedActivity(activity);
@@ -63,6 +62,7 @@ console.log(accessToken);
             'Content-Type': 'application/json',
             Authorization: `Bearer ${accessToken}`,
           },
+          credentials: 'include'
         }
       );
 
@@ -70,7 +70,8 @@ console.log(accessToken);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      await response.json();
+      const data = await response.json();
+      login(data.accessToken)
       setStatus('success');
     } catch (e) {
       console.error(e);
@@ -216,10 +217,13 @@ console.log(accessToken);
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate('/')}
-                    className="flex items-center gap-2 bg-gradient-to-r from-[#8B5E3C] to-[#B38B6D] text-white px-6 py-3 rounded-lg shadow-md"
                   >
-                    Start Browsing <ArrowRight className="w-4 h-4" />
+                    <NavLink
+                      className="flex items-center gap-2 bg-gradient-to-r from-[#8B5E3C] to-[#B38B6D] text-white px-6 py-3 rounded-lg shadow-md"
+                      to={'/'}
+                    >
+                      Start Browsing <ArrowRight className="w-4 h-4" />
+                    </NavLink>
                   </motion.button>
                 </motion.div>
               </motion.div>
@@ -259,11 +263,10 @@ console.log(accessToken);
                     onClick={() => navigate('/merchant')}
                   >
                     <NavLink
-                    to={'/merchant'}
-                    className="flex items-center gap-2 bg-gradient-to-r from-[#8B5E3C] to-[#B38B6D] text-white px-6 py-3 rounded-lg shadow-md"
+                      to={'/merchant'}
+                      className="flex items-center gap-2 bg-gradient-to-r from-[#8B5E3C] to-[#B38B6D] text-white px-6 py-3 rounded-lg shadow-md"
                     >
-                    Go to Dashboard <ArrowRight className="w-4 h-4" />
-
+                      Go to Dashboard <ArrowRight className="w-4 h-4" />
                     </NavLink>
                   </motion.button>
                 </motion.div>

@@ -36,9 +36,14 @@ namespace AuthenticationService.Services
                 .Where(rt => rt.UserId == user.Id);
             _context.RefreshTokens.RemoveRange(oldTokens);
             
-            await _context.RefreshTokens.AddAsync(refreshToken);
-            await _context.SaveChangesAsync();
+            var result = await _context.RefreshTokens.AddAsync(refreshToken);
 
+            if (result == null)
+            {
+                throw new Exception("Refresh token is not being saved");
+            }
+
+            await _context.SaveChangesAsync();
             return new AuthResponse
             {
                 AccessToken = accessToken,

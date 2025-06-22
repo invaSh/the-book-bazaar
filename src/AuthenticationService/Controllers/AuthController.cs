@@ -137,7 +137,22 @@ namespace AuthenticationService.Controllers
             var role = _roleManager.Roles.FirstOrDefault(r => r.Index == activity);
             if (role == null) return BadRequest("Something went wrong.");
             await _userManager.AddToRoleAsync(user, role.Name);
-            return Ok(activity);
+           
+            var tokens = await _tokenService.GenerateTokens(user);
+
+            Response.Cookies.Append("token", tokens.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(Convert.ToDouble(Environment.GetEnvironmentVariable("Jwt__RefreshTokenExpiryDays")))
+            });
+
+
+            return Ok(new
+            {
+                AccessToken = tokens.AccessToken
+            });
         }
     }
 }

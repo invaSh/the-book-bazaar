@@ -7,6 +7,7 @@ import UserSignIn from './pages/user/SignIn';
 import UserHome from './pages/user/Home';
 import AdminSignIn from './pages/admin/SignIn';
 import AdminHome from './pages/admin/Home';
+import MerchantHome from './pages/merchant/Home'
 import AdminLayout from './layout/admin/Layout';
 import UserLayout from './layout/user/Layout'
 import { AdminKitToaster } from './components/Toast';
@@ -59,6 +60,7 @@ function App() {
         <Route path='/sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>
         <Route path="activity" element={<Activity />} />
+        <Route path="merchant" element={<MerchantHome />} />
         
 
         <Route path="/admin" element={
