@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 function Layout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col bg-creamParchment">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow font-poppins">{children}</main>
       <Footer />

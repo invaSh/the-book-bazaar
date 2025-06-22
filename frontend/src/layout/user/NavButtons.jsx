@@ -14,7 +14,7 @@ import { SignOutDialog } from './SignOutDialog';
 
 export function SearchButton() {
   return (
-    <button className="p-1.5 rounded-full bg-creamParchment text-richNavy hover:text-[#8B5E3C] hover:bg-[#8B5E3C]/10 transition-colors">
+    <button className="p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors">
       <Search className="w-5 h-5" />
     </button>
   );
@@ -22,9 +22,9 @@ export function SearchButton() {
 
 export function CartButton() {
   return (
-    <button className="p-1.5 rounded-full bg-creamParchment text-richNavy hover:text-[#8B5E3C] hover:bg-[#8B5E3C]/10 transition-colors relative">
+    <button className="p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors relative">
       <ShoppingCart className="w-5 h-5" />
-      <span className="absolute -top-1 -right-1 bg-[#8B5E3C] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+      <span className="absolute -top-1 -right-1 bg-goldFoiling text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
         3
       </span>
     </button>
@@ -61,7 +61,7 @@ export function UserButton() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-full bg-creamParchment text-richNavy hover:text-[#8B5E3C] hover:bg-[#8B5E3C]/10 transition-colors duration-200 flex items-center`}
+        className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
       >
         <User className="w-5 h-5" />
       </button>

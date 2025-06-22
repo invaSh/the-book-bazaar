@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { BookOpen } from 'lucide-react';
 
 export const LogoOne = () => {
   return (
@@ -41,18 +42,15 @@ export const LogoTwo = () => {
 export const LogoThree = () => {
   return (
     <div className="flex-shrink-0 flex items-center">
-      <NavLink to="/" className="flex items-center group">
-        <span className="text-lg md:text-2xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-goldFoiling to-creamParchment">
-          <span className="italic font-light text-creamParchment/90">The</span>{' '}
-          <span className="ml-1">Book</span>{' '}
-          <span className="ml-1">Bazaar</span>
+      <NavLink to="/" className="flex items-center group space-x-2">
+        <BookOpen className="text-goldFoiling w-6 h-6" />
+        <span className="text-xl font-serif font-thin text-[#8B5E3C]">
+          The Book Bazaar
         </span>
       </NavLink>
     </div>
   );
 };
-
-
 
 export const LogoFour = () => {
   return (
