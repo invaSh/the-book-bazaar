@@ -20,12 +20,12 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      when: "beforeChildren",
+      when: 'beforeChildren',
       staggerChildren: 0.05,
       duration: 0.4,
-      ease: "easeOut"
-    }
-  }
+      ease: 'easeOut',
+    },
+  },
 };
 
 const itemVariants = {
@@ -35,9 +35,9 @@ const itemVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: [0.16, 1, 0.3, 1]
-    }
-  }
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
 };
 
 const successVariants = {
@@ -49,13 +49,13 @@ const successVariants = {
       type: 'spring',
       stiffness: 100,
       damping: 10,
-      delay: 0.1
-    }
+      delay: 0.1,
+    },
   },
   exit: {
     opacity: 0,
-    transition: { duration: 0.3 }
-  }
+    transition: { duration: 0.3 },
+  },
 };
 
 function SignUpPage() {
@@ -69,7 +69,7 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [status, setStatus] = useState('idle');
-  const { login } = useAuth()
+  const { login } = useAuth();
   const password = watch('password');
 
   const onSubmit = async (data) => {
@@ -88,18 +88,18 @@ function SignUpPage() {
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       const token = await response.json();
-      login(token.accessToken)
+      
       setStatus('success');
-
+      
       setTimeout(() => {
         navigate('/activity');
-      }, 3000);
+        login(token.accessToken);
+      }, 3000); 
     } catch (e) {
       console.error(e);
       setStatus('idle');
     }
   };
-
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -115,7 +115,7 @@ function SignUpPage() {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             className="w-full max-w-md sm:w-2xl bg-white shadow-md rounded-lg p-6 sm:p-8 relative z-0"
           >
             <motion.div
@@ -127,14 +127,14 @@ function SignUpPage() {
               <motion.div variants={itemVariants}>
                 <BookOpen className="mx-auto text-[#8B5E3C] w-9 h-9 sm:w-12 sm:h-12 mb-3" />
               </motion.div>
-              <motion.h1 
+              <motion.h1
                 variants={itemVariants}
                 className="font-serif text-xl sm:text-2xl text-gray-900 mb-3 leading-tight"
               >
                 Begin Your Journey at <br />
                 <span className="text-[#8B5E3C]">The Book Bazaar</span>
               </motion.h1>
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="w-14 sm:w-16 h-1 bg-lightBlue mx-auto mt-2 rounded-full"
               ></motion.div>
@@ -321,7 +321,11 @@ function SignUpPage() {
                   <div className="flex justify-center items-center gap-2">
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: 'linear',
+                      }}
                       className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
                     />
                     <span>Creating account...</span>
@@ -332,7 +336,7 @@ function SignUpPage() {
               </motion.button>
             </motion.form>
 
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-center text-mutedSlate mt-5 text-xs sm:text-sm font-body"
             >
