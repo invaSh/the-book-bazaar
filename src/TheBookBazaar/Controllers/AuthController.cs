@@ -68,5 +68,21 @@ namespace TheBookBazaar.Controllers
             return StatusCode(200, new { AccessToken = tokens.AccessToken });
         }
 
+
+        [HttpPost("sign-out")]
+        public async Task<IActionResult> Logout()
+        {
+            Console.WriteLine($"================================>Deleting refresh token...");
+            var refreshToken = Request.Cookies["refresh"];
+            Console.WriteLine($"================================>Refresh token: {refreshToken}");
+            if (!string.IsNullOrEmpty(refreshToken))
+            {
+                await _tokenService.DeleteSession(refreshToken);
+                Response.Cookies.Delete("refresh");
+            }
+            Console.WriteLine($"=========================>Cookie after deletion: {Request.Cookies["refresh"]}");
+            return Ok("Sign out successful!");
+        }
+
     }
 }
