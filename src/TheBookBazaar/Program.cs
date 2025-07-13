@@ -16,6 +16,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AuthDataContext>(o =>
 {
     o.UseNpgsql(builder.Configuration.GetConnectionString("AuthConnection"));
+}); 
+
+builder.Services.AddDbContext<AppDataContext>(o =>
+{
+    o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddIdentity<AppUser, AppRole>()
