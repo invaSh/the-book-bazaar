@@ -105,5 +105,27 @@ namespace TheBookBazaar.Controllers
             return Ok(new { AccessToken = accessToken });
         }
 
+        [HttpPost("select-activity/{activity}")]
+        public async Task<IActionResult> SelectActivity(int activity)
+        {
+            var tokens = await _mediator.Send(new SelectActivity.Command
+            {
+                ActivityIndex = activity,
+                UserPrincipal = User
+            });
+
+            Response.Cookies.Append("token", tokens.RefreshToken, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.UtcNow.AddDays(
+                    Convert.ToDouble(Environment.GetEnvironmentVariable("Jwt__RefreshTokenExpiryDays")))
+            });
+
+            return Ok(new { tokens.AccessToken });
+        }
+
+
     }
 }
