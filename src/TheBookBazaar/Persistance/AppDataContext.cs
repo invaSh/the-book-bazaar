@@ -5,7 +5,7 @@ namespace TheBookBazaar.Persistance
 {
     public class AppDataContext : DbContext
     {
-        public AppDataContext(DbContextOptions options) : base(options)
+        public AppDataContext(DbContextOptions<AppDataContext> options) : base(options)
         {
         }
 

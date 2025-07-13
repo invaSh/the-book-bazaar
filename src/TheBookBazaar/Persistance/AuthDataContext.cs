@@ -6,9 +6,11 @@ namespace TheBookBazaar.Persistance
 {
     public class AuthDataContext : IdentityDbContext<AppUser>
     {
-        public AuthDataContext(DbContextOptions options) : base(options)
+        public AuthDataContext(DbContextOptions<AuthDataContext> options) : base(options)
         {
         }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
