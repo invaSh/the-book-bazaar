@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TheBookBazaar.Application.Auth;
 using TheBookBazaar.DTOs;
@@ -82,6 +83,26 @@ namespace TheBookBazaar.Controllers
             }
             Console.WriteLine($"=========================>Cookie after deletion: {Request.Cookies["refresh"]}");
             return Ok("Sign out successful!");
+        }
+
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh(Refresh.Query query)
+        {
+            var refreshToken = Request.Cookies["refresh"];
+            if (refreshToken == null) return Unauthorized(new { message = "Refresh token null, Please log in again!" });
+
+            var verifyToken = await _tokenService.VerifyRefreshToken(refreshToken);
+            if (verifyToken == null) return Unauthorized(new { message = "Verify token null, Please log in again!" });
+
+            if (verifyToken.Expires < DateTime.UtcNow) return Unauthorized(new { message = "Your session has expired. Please log in again." });
+
+            query.VerifyToken = verifyToken;
+            var user = await _mediator.Send(query);
+
+            var accessToken = _tokenService.GenerateAccessToken(user.User, user.Roles);
+
+            return Ok(new { AccessToken = accessToken });
         }
 
     }
