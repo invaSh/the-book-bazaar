@@ -18,10 +18,8 @@ namespace AuthenticationService.Data
             var roles = new (string Name, int Index, string Email, string UserName, string FullName)[]
             {
                 ("Admin", 1, "admin@tbb.com", "tbb_admin", "Administrator"),
-                ("TechSupport", 2, "support@tbb.com", "tbb_support", "Tech Support"),
-                ("Agent", 3, "agent@tbb.com", "tbb_agent", "Agent User"),
-                ("Merchant", 4, "merchant@tbb.com", "tbb_merchant", "Merchant User"),
-                ("User", 5, "user@tbb.com", "tbb_user", "Regular User")
+                ("Merchant", 2, "merchant@tbb.com", "tbb_merchant", "Merchant User"),
+                ("User", 3, "user@tbb.com", "tbb_user", "Regular User")
             };
 
             foreach (var role in roles)

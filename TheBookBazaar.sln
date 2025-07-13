@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayService", "src\Gatew
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationService", "src\AuthenticationService\AuthenticationService.csproj", "{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBookBazaar", "src\TheBookBazaar\TheBookBazaar.csproj", "{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{1761C725-A1D6-4800-9CDE-AA92C00B9622} = {422F41AF-C43E-4329-868B-80EE006B19DC}
 		{55540387-7548-4D5D-A878-440F067702FA} = {422F41AF-C43E-4329-868B-80EE006B19DC}
 		{C11D71D4-AEBE-49B2-ABCE-F4F2E3A91976} = {422F41AF-C43E-4329-868B-80EE006B19DC}
+		{F679157B-C2DB-4EA6-8C90-7B7FE8DB42F7} = {422F41AF-C43E-4329-868B-80EE006B19DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {02642870-5F22-44FF-AC7C-A95C3141FC4C}
