@@ -18,7 +18,7 @@ const PublicRoute = ({ children }) => {
   const { user } = useAuth();
 
   if (user) {
-    return [4, 5].includes(user.role) ? (
+    return [2, 3].includes(user.role) ? (
       <Navigate to="/" replace />
     ) : (
       <Navigate to="/admin" replace />
@@ -40,7 +40,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/activity" replace />;
   }
 
-  return [4, 5].includes(Number(user.role)) ? (
+  return [2, 3].includes(Number(user.role)) ? (
     <Navigate to="/" replace />
   ) : (
     <Navigate to="/admin" replace />
@@ -64,14 +64,14 @@ function App() {
         
 
         <Route path="/admin" element={
-          <ProtectedRoute allowedRoles={[1, 2, 3]}>
+          <ProtectedRoute allowedRoles={[1]}>
             <AdminLayout />
           </ProtectedRoute>}>
           <Route index element={<AdminHome />} />
         </Route>
         
         <Route path="/"  element={ 
-          <ProtectedRoute allowedRoles={[4, 5]}>
+          <ProtectedRoute allowedRoles={[2, 3]}>
             <UserLayout />
           </ProtectedRoute>}>
           <Route index element={<UserHome />} />

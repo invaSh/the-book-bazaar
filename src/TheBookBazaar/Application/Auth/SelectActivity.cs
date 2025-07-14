@@ -20,6 +20,14 @@ namespace TheBookBazaar.Application.Auth
             private readonly UserManager<AppUser> _userManager;
             private readonly RoleManager<AppRole> _roleManager;
             private readonly TokenService _tokenService;
+
+            public Handler(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, TokenService tokenService)
+            {
+                _userManager = userManager;
+                _roleManager = roleManager;
+                _tokenService = tokenService;
+            }
+
             public async Task<AuthResponse> Handle(Command req, CancellationToken cancellationToken)
             {
                 var user = await _userManager.GetUserAsync(req.UserPrincipal);
