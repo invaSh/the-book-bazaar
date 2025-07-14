@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const loading = toast.loading('Signing you out..')
+    const loading = toast.loading('Signing you out..');
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/sign-out`, {
         method: 'POST',
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
         toast.error('Error signing out', { id: loading });
         return;
       }
-      toast.success('Sign out successful!', { id: loading })
+      toast.success('Sign out successful!', { id: loading });
     } catch (error) {
       console.error('Logout request failed:', error);
     }
@@ -43,6 +43,10 @@ export const AuthProvider = ({ children }) => {
           {
             method: 'POST',
             credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}),
           }
         );
         if (!res.ok) {

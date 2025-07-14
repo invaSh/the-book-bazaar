@@ -114,7 +114,7 @@ namespace TheBookBazaar.Controllers
                 UserPrincipal = User
             });
 
-            Response.Cookies.Append("token", tokens.RefreshToken, new CookieOptions
+            Response.Cookies.Append("refresh", tokens.RefreshToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,

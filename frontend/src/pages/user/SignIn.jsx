@@ -121,16 +121,10 @@ function SignInPage() {
             <motion.div variants={itemVariants} className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-mutedSlate w-4 h-4 sm:w-5 sm:h-5" />
               <input
-                type="email"
+                // type="email"
                 placeholder="Your Email"
                 className="w-full pl-10 sm:pl-12 pr-4 py-2 text-xs sm:text-sm rounded-lg border border-softTaupe bg-white shadow-sm focus:ring-2 focus:ring-lightBlue/50 focus:border-lightBlue outline-none transition-all"
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'Invalid email address',
-                  },
-                })}
+                {...register('identifier')}
               />
               <AnimatePresence>
                 {errors.email && (
@@ -153,13 +147,7 @@ function SignInPage() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Your Password"
                 className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2 text-xs sm:text-sm rounded-lg border border-softTaupe bg-white shadow-sm focus:ring-2 focus:ring-lightBlue/50 focus:border-lightBlue outline-none transition-all"
-                {...register('password', {
-                  required: 'Password is required',
-                  minLength: {
-                    value: 6,
-                    message: 'Password must be at least 6 characters',
-                  },
-                })}
+                {...register('password')}
               />
               <button
                 type="button"

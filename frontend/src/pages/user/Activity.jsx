@@ -107,7 +107,7 @@ const Activity = () => {
             >
               {/* Buyer Box */}
               <motion.div
-                onClick={() => handleSelection(5)}
+                onClick={() => handleSelection(3)}
                 whileHover={{
                   scale: 1.05,
                   y: -5,
@@ -125,7 +125,7 @@ const Activity = () => {
 
               {/* Merchant Box */}
               <motion.div
-                onClick={() => handleSelection(4)}
+                onClick={() => handleSelection(2)}
                 whileHover={{
                   scale: 1.05,
                   y: -5,
@@ -150,7 +150,7 @@ const Activity = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="w-full max-w-4xl"
           >
-            {selectedActivity === 5 ? (
+            {selectedActivity === 3 ? (
               // Buyer Welcome Screen
               <motion.div
                 variants={containerVariants}
