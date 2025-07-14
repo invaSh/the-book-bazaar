@@ -24,5 +24,12 @@ namespace TheBookBazaar.Controllers
             command.UserPrincipal = User;
             return await _mediator.Send(command);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<MarketplaceDto>>> GetAll([FromQuery]GetAll.Query query)
+        {
+            query.UserPrincipal = User;
+            return await _mediator.Send(query);
+        }
     }
 }
