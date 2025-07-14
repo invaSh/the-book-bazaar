@@ -15,8 +15,7 @@ namespace TheBookBazaar.Migrations.AppData
                 name: "CloseDate",
                 table: "Marketplaces",
                 type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreatedAt",
@@ -29,8 +28,7 @@ namespace TheBookBazaar.Migrations.AppData
                 name: "OpenDate",
                 table: "Marketplaces",
                 type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "Status",

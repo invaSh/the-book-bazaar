@@ -108,7 +108,7 @@ namespace TheBookBazaar.Migrations.AppData
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CloseDate")
+                    b.Property<DateTime?>("CloseDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
@@ -117,7 +117,7 @@ namespace TheBookBazaar.Migrations.AppData
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("OpenDate")
+                    b.Property<DateTime?>("OpenDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("OwnerId")

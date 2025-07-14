@@ -12,7 +12,7 @@ using TheBookBazaar.Persistance;
 namespace TheBookBazaar.Migrations.AppData
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20250714113230_Open")]
+    [Migration("20250714115821_Open")]
     partial class Open
     {
         /// <inheritdoc />
@@ -111,7 +111,7 @@ namespace TheBookBazaar.Migrations.AppData
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CloseDate")
+                    b.Property<DateTime?>("CloseDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedAt")
@@ -120,7 +120,7 @@ namespace TheBookBazaar.Migrations.AppData
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("OpenDate")
+                    b.Property<DateTime?>("OpenDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("OwnerId")

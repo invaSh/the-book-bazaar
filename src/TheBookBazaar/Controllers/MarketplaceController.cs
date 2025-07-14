@@ -43,7 +43,7 @@ namespace TheBookBazaar.Controllers
         {
             command.Id = Guid.Parse(id);
             await _mediator.Send(command);
-            return Ok("Marketplace closed successfully!");
+            return Ok("Status changed successfully!");
         }
 
     }
