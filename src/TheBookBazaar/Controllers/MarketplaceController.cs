@@ -38,5 +38,13 @@ namespace TheBookBazaar.Controllers
             return await _mediator.Send(new GetByID.Query { Id = Guid.Parse(id) });
         }
 
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Status([FromRoute] string id, [FromBody] Status.Command command)
+        {
+            command.Id = Guid.Parse(id);
+            await _mediator.Send(command);
+            return Ok("Marketplace closed successfully!");
+        }
+
     }
 }
