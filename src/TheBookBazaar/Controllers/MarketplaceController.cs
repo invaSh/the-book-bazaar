@@ -26,10 +26,17 @@ namespace TheBookBazaar.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MarketplaceDto>>> GetAll([FromQuery]GetAll.Query query)
+        public async Task<ActionResult<List<MarketplaceDto>>> GetAll([FromQuery] GetAll.Query query)
         {
             query.UserPrincipal = User;
             return await _mediator.Send(query);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MarketplaceDto>> GetByID([FromRoute] string id)
+        {
+            return await _mediator.Send(new GetByID.Query { Id = Guid.Parse(id) });
+        }
+
     }
 }
