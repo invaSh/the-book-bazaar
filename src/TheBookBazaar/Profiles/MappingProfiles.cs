@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TheBookBazaar.Domain;
 using TheBookBazaar.DTOs;
+using TheBookBazaar.Application;
 
 namespace TheBookBazaar.Profiles
 {
@@ -9,6 +10,7 @@ namespace TheBookBazaar.Profiles
         public MappingProfiles()
         {
             CreateMap<AppUser, UserDto>();
+            CreateMap<Marketplace, MarketplaceDto>();
 
         }
     }
