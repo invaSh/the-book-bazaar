@@ -13,13 +13,15 @@ import UserLayout from './layout/user/Layout'
 import { AdminKitToaster } from './components/Toast';
 import SignUp from './pages/user/SignUp';
 import Activity from './pages/user/Activity';
-
+import MerchantLayout from './layout/merchant/Layout';
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
 
   if (user) {
-    return [2, 3].includes(user.role) ? (
+    return (user.role == 3) ? (
       <Navigate to="/" replace />
+    ) : (user.role == 2) ? (
+      <Navigate to="/merchant" replace />
     ) : (
       <Navigate to="/admin" replace />
     );
@@ -60,8 +62,15 @@ function App() {
         <Route path='/sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>
         <Route path="activity" element={<Activity />} />
-        <Route path="merchant" element={<MerchantHome />} />
         
+        
+
+        <Route path="/merchant" element={
+          <ProtectedRoute allowedRoles={[2]}>
+              <MerchantLayout />
+          </ProtectedRoute>}>
+          <Route index element={<MerchantHome />} />
+        </Route>
 
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={[1]}>
@@ -71,7 +80,7 @@ function App() {
         </Route>
         
         <Route path="/"  element={ 
-          <ProtectedRoute allowedRoles={[2, 3]}>
+          <ProtectedRoute allowedRoles={[3]}>
             <UserLayout />
           </ProtectedRoute>}>
           <Route index element={<UserHome />} />
