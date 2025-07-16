@@ -21,8 +21,9 @@ import {
 import { LogoThree } from '../../components/Logo';
 import { BookOpen } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { UserButton } from '../user/NavButtons';
 
-const SIDEBAR_WIDTH = 80; // px
+const SIDEBAR_WIDTH = 80;
 
 const merchantMenus = [
   { label: 'Dashboard', icon: FiBarChart2, to: '/merchant/dashboard' },
@@ -111,12 +112,10 @@ function Header({ toggleSidebar }) {
   const merchantName = 'Alex';
   const [showSearch, setShowSearch] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-
+  const [isModalOpen, setModalOpen] = useState(false);
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[var(--color-warmSand)]">
-      {/* Mobile Layout */}
       <div className="md:hidden">
-        {/* Top Bar */}
         <div className="flex items-center justify-between p-3">
           <button
             className="p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition"
@@ -137,34 +136,29 @@ function Header({ toggleSidebar }) {
 
           <div className="flex items-center gap-1">
             <button
-              className="p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition"
+            className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
               onClick={() => setShowSearch((s) => !s)}
               aria-label="Search"
             >
-              <FiSearch size={22} className="text-[var(--color-richNavy)]" />
+              <FiSearch size={22}/>
             </button>
-            <button className="relative p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition">
-              <FiBell size={22} className="text-[var(--color-richNavy)]" />
+            <button
+              className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
+            >
+              <FiBell size={22}/>
               <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[var(--color-goldFoiling)] animate-pulse"></span>
             </button>
             <button
-              className="p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition"
+              className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
               onClick={() => setDarkMode((d) => !d)}
               aria-label="Toggle dark mode"
             >
-              {darkMode ? (
-                <FiSun size={22} className="text-[var(--color-richNavy)]" />
-              ) : (
-                <FiMoon size={22} className="text-[var(--color-richNavy)]" />
-              )}
+              {darkMode ? <FiSun size={22} /> : <FiMoon size={22} />}
             </button>
-            <div className="w-9 h-9 rounded-full bg-[var(--color-mellowApricot)] flex items-center justify-center text-[var(--color-richNavy)] font-bold text-lg shadow font-poppins border-2 border-[var(--color-goldFoiling)]">
-              {merchantName[0]}
-            </div>
+            <UserButton />
           </div>
         </div>
 
-        {/* Search Bar - Mobile */}
         <AnimatePresence>
           {showSearch && (
             <motion.div
@@ -188,9 +182,7 @@ function Header({ toggleSidebar }) {
         </AnimatePresence>
       </div>
 
-      {/* Desktop Layout */}
       <div className="hidden md:flex items-center justify-between h-20 px-6">
-        {/* Left Side - Logo */}
         <div className="flex-shrink-0">
           <div className="flex-shrink-0 flex items-center">
             <NavLink to="/" className="flex items-center group space-x-2">
@@ -200,7 +192,6 @@ function Header({ toggleSidebar }) {
           </div>{' '}
         </div>
 
-        {/* Center - Search */}
         <div className="flex-1 max-w-2xl mx-8">
           <div className="relative">
             <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-mutedSlate)]" />
@@ -212,32 +203,24 @@ function Header({ toggleSidebar }) {
           </div>
         </div>
 
-        {/* Right Side - Actions */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition">
-            <FiHelpCircle size={20} className="text-[var(--color-richNavy)]" />
-          </button>
-
+         
           <button
-            className="p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition"
+            className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
             onClick={() => setDarkMode((d) => !d)}
             aria-label="Toggle dark mode"
           >
-            {darkMode ? (
-              <FiSun size={20} className="text-[var(--color-richNavy)]" />
-            ) : (
-              <FiMoon size={20} className="text-[var(--color-richNavy)]" />
-            )}
+            {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
           </button>
 
-          <button className="relative p-2 rounded-full hover:bg-[var(--color-creamParchment)] transition">
-            <FiBell size={20} className="text-[var(--color-richNavy)]" />
-            <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[var(--color-goldFoiling)] animate-pulse"></span>
+          <button
+            className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
+          >
+            <FiBell size={20} />
+            {/* <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-[var(--color-goldFoiling)] animate-pulse"></span> */}
           </button>
 
-          <div className="w-10 h-10 rounded-full bg-[var(--color-mellowApricot)] flex items-center justify-center text-[var(--color-richNavy)] font-bold text-lg shadow font-poppins border-2 border-[var(--color-goldFoiling)]">
-            {merchantName[0]}
-          </div>
+          <UserButton />
         </div>
       </div>
     </header>
@@ -246,15 +229,12 @@ function Header({ toggleSidebar }) {
 
 function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // For active menu, you can use location.pathname if using react-router, here we use a placeholder
   const activePath = window.location.pathname;
   const toggleSidebar = () => setSidebarOpen((open) => !open);
 
   return (
     <div className="min-h-screen flex bg-[#fafbfc] font-poppins">
-      {/* Sidebar for desktop only */}
       <DesktopSidebar activePath={activePath} />
-      {/* Sidebar for mobile only */}
       <Sidebar
         isOpen={sidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -262,8 +242,8 @@ function Layout({ children }) {
       />
       <div className="flex-1 flex flex-col min-w-0">
         <Header toggleSidebar={toggleSidebar} />
-        <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 ">
-          <div className="w-full h-full bg-[var(--color-warmSand)]/40  rounded-2xl shadow p-2 md:p-8 min-h-[60vh]">
+        <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 bg-[var(--color-warmSand)]/30">
+          <div className="w-full h-full p-2 md:p-8 min-h-[60vh]">
             {children}
           </div>
         </main>
