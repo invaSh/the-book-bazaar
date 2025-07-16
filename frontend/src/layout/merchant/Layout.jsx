@@ -20,7 +20,7 @@ import {
 } from 'react-icons/fi';
 import { LogoThree } from '../../components/Logo';
 import { BookOpen } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { UserButton } from '../user/NavButtons';
 
 const SIDEBAR_WIDTH = 80;
@@ -114,7 +114,7 @@ function Header({ toggleSidebar }) {
   const [darkMode, setDarkMode] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[var(--color-warmSand)]">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white">
       <div className="md:hidden">
         <div className="flex items-center justify-between p-3">
           <button
@@ -136,16 +136,16 @@ function Header({ toggleSidebar }) {
 
           <div className="flex items-center gap-1">
             <button
-            className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
+              className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
               onClick={() => setShowSearch((s) => !s)}
               aria-label="Search"
             >
-              <FiSearch size={22}/>
+              <FiSearch size={22} />
             </button>
             <button
               className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
             >
-              <FiBell size={22}/>
+              <FiBell size={22} />
               <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[var(--color-goldFoiling)] animate-pulse"></span>
             </button>
             <button
@@ -204,7 +204,6 @@ function Header({ toggleSidebar }) {
         </div>
 
         <div className="flex items-center space-x-4">
-         
           <button
             className={`p-1.5 rounded-full bg-white border border-[#8B5E3C]/20 text-[#8B5E3C] hover:text-goldFoiling hover:bg-goldFoiling/10 transition-colors duration-200 flex items-center`}
             onClick={() => setDarkMode((d) => !d)}
@@ -233,20 +232,35 @@ function Layout({ children }) {
   const toggleSidebar = () => setSidebarOpen((open) => !open);
 
   return (
-    <div className="min-h-screen flex bg-[#fafbfc] font-poppins">
-      <DesktopSidebar activePath={activePath} />
-      <Sidebar
-        isOpen={sidebarOpen}
-        toggleSidebar={toggleSidebar}
-        activePath={activePath}
+    <div className="min-h-screen flex bg-[#fafbfc] font-poppins relative">
+      <div 
+        // className="fixed inset-0 z-0 opacity-30"
+        // style={{
+        //   backgroundImage: "url('https://images.unsplash.com/photo-1699544084159-19ab53017724?q=80&w=3000&auto=format&fit=crop')",
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        //   backgroundAttachment: "fixed",
+        // }}
       />
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header toggleSidebar={toggleSidebar} />
-        <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 bg-[var(--color-warmSand)]/30">
-          <div className="w-full h-full p-2 md:p-8 min-h-[60vh]">
-            {children}
-          </div>
-        </main>
+
+      {/* Content Layer */}
+      <div className="relative z-10 flex w-full">
+        <DesktopSidebar activePath={activePath} />
+        <Sidebar
+          isOpen={sidebarOpen}
+          toggleSidebar={toggleSidebar}
+          activePath={activePath}
+        />
+        <div className="flex-1 flex flex-col min-w-0">
+          <Header toggleSidebar={toggleSidebar} />
+          <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 bg-[var(--color-warmSand)]/20">
+            <div 
+              className="w-full h-full p-4 md:p-8 min-h-[60vh]"
+            >
+              <Outlet/>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

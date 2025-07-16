@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     setAccessToken(token);
-    setFetchToken(token)
+    setFetchToken(token);
     const decoded = jwtDecode(token);
     setUser(decoded);
   };
@@ -58,6 +58,7 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         const token = data.accessToken.result;
         setAccessToken(token);
+        setFetchToken(token);
         setUser(jwtDecode(token));
         console.log('Refresh successful!');
       } catch (e) {

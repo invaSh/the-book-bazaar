@@ -29,6 +29,8 @@ const networkErrorResponse = {
 };
 
 async function handleResponse(response) {
+  console.log("response in handleResponse--->",JSON.stringify(response, null, 2));
+  
   const text = await response.text();
   let data;
   try {
@@ -37,12 +39,15 @@ async function handleResponse(response) {
     data = text;
   }
 
+  console.log(data);
+  
+
   if (response.ok) {
-    return data;
+    return { data };
   } else {
     const error = {
       status: response.status,
-      message: data || response.statusText,
+      message: data || response.error || response.statusText ,
       url: response.url,
       headers: response.headers,
     };
@@ -79,7 +84,7 @@ async function post(url, data) {
   }
 }
 
-async function post(url, data) {
+async function put(url, data) {
   const requestOptions = {
     method: 'PUT',
     credentials: 'include',
