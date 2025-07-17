@@ -21,9 +21,9 @@ const PublicRoute = ({ children }) => {
   const { user } = useAuth();
 
   if (user) {
-    return (user.role == 3) ? (
+    return (user.role_id == 3) ? (
       <Navigate to="/" replace />
-    ) : (user.role == 2) ? (
+    ) : (user.role_id == 2) ? (
       <Navigate to="/merchant" replace />
     ) : (
       <Navigate to="/admin" replace />
@@ -40,12 +40,12 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/sign-in" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(Number(user.role))) {
-  if (user.role == null) {
+  if (allowedRoles && !allowedRoles.includes(Number(user.role_id))) {
+  if (user.role_id == null) {
     return <Navigate to="/activity" replace />;
   }
 
-  return [2, 3].includes(Number(user.role)) ? (
+  return [2, 3].includes(Number(user.role_id)) ? (
     <Navigate to="/" replace />
   ) : (
     <Navigate to="/admin" replace />

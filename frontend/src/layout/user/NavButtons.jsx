@@ -49,7 +49,7 @@ export function UserButton() {
 
   let menuItems;
 
-  if (user.role == 2) {
+  if (user.role_id == 2) {
     menuItems = [];
   } else {
     menuItems = [

@@ -29,8 +29,8 @@ const networkErrorResponse = {
 };
 
 async function handleResponse(response) {
-  console.log("response in handleResponse--->",JSON.stringify(response, null, 2));
-  
+  console.log();
+
   const text = await response.text();
   let data;
   try {
@@ -39,15 +39,19 @@ async function handleResponse(response) {
     data = text;
   }
 
-  console.log(data);
-  
 
   if (response.ok) {
     return { data };
+  } else if (data?.errors && data?.status === 'ValidationFailed') {
+    return {
+      error: {
+        errors: data?.errors,
+      },
+    };
   } else {
     const error = {
       status: response.status,
-      message: data || response.error || response.statusText ,
+      message: data || response.error || response.statusText,
       url: response.url,
       headers: response.headers,
     };

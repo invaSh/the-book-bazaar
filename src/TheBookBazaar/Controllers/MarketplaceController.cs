@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheBookBazaar.Application.Marketplace;
@@ -17,7 +18,7 @@ namespace TheBookBazaar.Controllers
             _mediator = mediator;
         }
 
-
+        [Authorize(Roles = "Merchant")]
         [HttpPost]
         public async Task<ActionResult<MarketplaceDto>> Create(Create.Command command)
         {

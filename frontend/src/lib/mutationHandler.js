@@ -18,5 +18,10 @@ export const mutationHandler = (response, loading) => {
       errorList = response.error.errors;
     }
   }
-  return errorList;
+  return Object.fromEntries(
+    Object.entries(errorList).map(([key, value]) => [
+      key.charAt(0).toLowerCase() + key.slice(1),
+      value,
+    ])
+  );
 };

@@ -31,8 +31,6 @@ function Home() {
     fetchData();
   }, []);
 
-  console.log(marketplaces);
-
   if (loading) {
     return (
       <section className="bg-[var(--color-warmSand)]/30 w-full h-full rounded-2xl flex items-center justify-center">
@@ -102,6 +100,12 @@ function Home() {
             </motion.div>
           ))}
         </AnimatePresence>
+        <NavLink
+          to={'/merchant/create'}
+          className="mt-4 px-6 py-2 bg-[var(--color-goldFoiling)] text-white font-semibold rounded-full hover:bg-opacity-90 transition-all duration-200"
+        >
+          Create A Marketplace
+        </NavLink>
       </div>
     </section>
   );
