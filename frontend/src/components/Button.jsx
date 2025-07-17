@@ -12,7 +12,7 @@ export const Button = React.forwardRef(({
   disabled = false,
   ...props
 }, ref) => {
-  const baseClasses = 'font-poppins font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center border';
+  const baseClasses = 'font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center border';
   
   const sizeClasses = {
     small: 'px-3 py-1.5 text-sm',
@@ -21,11 +21,11 @@ export const Button = React.forwardRef(({
   };
   
   const variantClasses = {
-    primary: `bg-[var(--color-goldFoiling)] text-[var(--color-richNavy)] hover:bg-[var(--color-goldFoiling-dark)] border-[var(--color-goldFoiling-dark)] focus:ring-[var(--color-goldFoiling)]`,
-    secondary: `bg-white text-[var(--color-richNavy)] border-[var(--color-creamParchment)] hover:bg-[var(--color-creamParchment)] focus:ring-[var(--color-goldFoiling)]`,
+    primary: `bg-[var(--color-goldFoiling)] text-[var(--color-richNavy)] hover:bg-[var(--color-deepBurgundy)] hover:text-[var(--color-softPeach)] border-[var(--color-goldFoiling)] focus:ring-[var(--color-goldFoiling)]`,
+    secondary: `bg-[var(--color-creamParchment)] text-[var(--color-richNavy)] border-[var(--color-warmSand)] hover:bg-[var(--color-warmSand)] focus:ring-[var(--color-goldFoiling)]`,
     outline: `bg-transparent text-[var(--color-richNavy)] border-[var(--color-goldFoiling)] hover:bg-[var(--color-goldFoiling)]/10 focus:ring-[var(--color-goldFoiling)]`,
     ghost: `bg-transparent text-[var(--color-richNavy)] border-transparent hover:bg-[var(--color-creamParchment)] focus:ring-[var(--color-goldFoiling)]`,
-    danger: `bg-red-100 text-red-700 border-red-200 hover:bg-red-200 focus:ring-red-500`
+    danger: `bg-[var(--color-paleRose)] text-[var(--color-deepBurgundy)] border-[var(--color-paleRose)] hover:bg-[var(--color-deepBurgundy)] hover:text-[var(--color-paleRose)] focus:ring-[var(--color-deepBurgundy)]`
   };
   
   const disabledClasses = 'opacity-50 cursor-not-allowed';
@@ -40,6 +40,7 @@ export const Button = React.forwardRef(({
         ${variantClasses[variant]}
         ${disabled || isLoading ? disabledClasses : ''}
         ${className}
+        font-poppins
       `}
       disabled={disabled || isLoading}
       {...props}
@@ -68,4 +69,3 @@ export const Button = React.forwardRef(({
 });
 
 Button.displayName = 'Button';
-

@@ -255,7 +255,7 @@ function Layout({ children }) {
           <Header toggleSidebar={toggleSidebar} />
           <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 bg-[var(--color-warmSand)]/20">
             <div 
-              className="w-full h-full p-4 md:p-8 min-h-[60vh]"
+              className="w-full h-full min-h-[60vh]"
             >
               <Outlet/>
             </div>

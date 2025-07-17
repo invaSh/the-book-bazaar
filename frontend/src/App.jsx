@@ -14,6 +14,9 @@ import { AdminKitToaster } from './components/Toast';
 import SignUp from './pages/user/SignUp';
 import Activity from './pages/user/Activity';
 import MerchantLayout from './layout/merchant/Layout';
+import MerchantCreate from './pages/merchant/Create'
+
+
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
 
@@ -68,8 +71,10 @@ function App() {
         <Route path="/merchant" element={
           <ProtectedRoute allowedRoles={[2]}>
               <MerchantLayout />
-          </ProtectedRoute>}>
+          </ProtectedRoute>
+        }>
           <Route index element={<MerchantHome />} />
+          <Route path='create' element={<MerchantCreate />} />
         </Route>
 
         <Route path="/admin" element={

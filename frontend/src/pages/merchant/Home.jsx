@@ -3,6 +3,7 @@ import { getMarketplaces } from '../../actions/marketplaceActions';
 import { ErrorState, EmptyState, LoadingState } from '../../components/States';
 import { FaSpinner, FaStore } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 
 function Home() {
   const [marketplaces, setMarketplaces] = useState([]);
@@ -59,12 +60,12 @@ function Home() {
           title="Welcome to Your Marketplace Hub"
           subtitle="You haven't created any marketplaces yet. Let’s fix that and get you started."
         >
-          <button
+          <NavLink
+            to={'/merchant/create'}
             className="mt-4 px-6 py-2 bg-[var(--color-goldFoiling)] text-white font-semibold rounded-full hover:bg-opacity-90 transition-all duration-200"
-            onClick={() => console.log('Open marketplace creation modal')}
           >
             Create Your First Marketplace
-          </button>
+          </NavLink>
         </EmptyState>
       </section>
     );
