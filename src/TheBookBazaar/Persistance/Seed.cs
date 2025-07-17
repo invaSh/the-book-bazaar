@@ -13,7 +13,7 @@ namespace TheBookBazaar.Persistance
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             var context = scope.ServiceProvider.GetRequiredService<AuthDataContext>();
 
-            await context.Database.MigrateAsync(); // apply any migrations
+            await context.Database.MigrateAsync(); 
 
             var roles = new (string Name, int Index, string Email, string UserName, string FullName)[]
             {
@@ -24,7 +24,6 @@ namespace TheBookBazaar.Persistance
 
             foreach (var (name, index, email, username, fullName) in roles)
             {
-                // 1. Ensure role exists
                 var role = await roleManager.FindByNameAsync(name);
                 if (role == null)
                 {
@@ -37,7 +36,6 @@ namespace TheBookBazaar.Persistance
                     await roleManager.CreateAsync(role);
                 }
 
-                // 2. Ensure user exists
                 var user = await userManager.FindByEmailAsync(email);
                 if (user == null)
                 {
