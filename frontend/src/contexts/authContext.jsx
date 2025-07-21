@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import toast from 'react-hot-toast';
+import { setFetchToken } from '../lib/fetchWrapper';
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     setAccessToken(token);
+    setFetchToken(token);
     const decoded = jwtDecode(token);
     setUser(decoded);
   };
@@ -56,6 +58,7 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         const token = data.accessToken.result;
         setAccessToken(token);
+        setFetchToken(token);
         setUser(jwtDecode(token));
         console.log('Refresh successful!');
       } catch (e) {

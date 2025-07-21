@@ -62,7 +62,8 @@ namespace TheBookBazaar.Services
             foreach (var roleName in roles)
             {
                 var role = await _roleManager.FindByNameAsync(roleName);
-                claims.Add(new Claim("role", role.Index.ToString()));
+                claims.Add(new Claim("role", role.Name.ToString()));
+                claims.Add(new Claim("role_id", role.Index.ToString()));
             }
 
             var secretKey = Environment.GetEnvironmentVariable("Jwt__SecretKey");

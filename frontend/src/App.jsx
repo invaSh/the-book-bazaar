@@ -13,13 +13,18 @@ import UserLayout from './layout/user/Layout'
 import { AdminKitToaster } from './components/Toast';
 import SignUp from './pages/user/SignUp';
 import Activity from './pages/user/Activity';
+import MerchantLayout from './layout/merchant/Layout';
+import MerchantCreate from './pages/merchant/Create'
+import MerchantProfile from './pages/merchant/Profile'
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
 
   if (user) {
-    return [2, 3].includes(user.role) ? (
+    return (user.role_id == 3) ? (
       <Navigate to="/" replace />
+    ) : (user.role_id == 2) ? (
+      <Navigate to="/merchant" replace />
     ) : (
       <Navigate to="/admin" replace />
     );
@@ -35,12 +40,12 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/sign-in" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes(Number(user.role))) {
-  if (user.role == null) {
+  if (allowedRoles && !allowedRoles.includes(Number(user.role_id))) {
+  if (user.role_id == null) {
     return <Navigate to="/activity" replace />;
   }
 
-  return [2, 3].includes(Number(user.role)) ? (
+  return [2, 3].includes(Number(user.role_id)) ? (
     <Navigate to="/" replace />
   ) : (
     <Navigate to="/admin" replace />
@@ -60,8 +65,18 @@ function App() {
         <Route path='/sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />
         <Route path="/admin/sign-in" element={<PublicRoute><AdminSignIn /></PublicRoute>}/>
         <Route path="activity" element={<Activity />} />
-        <Route path="merchant" element={<MerchantHome />} />
         
+        
+
+        <Route path="/merchant" element={
+          <ProtectedRoute allowedRoles={[2]}>
+              <MerchantLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<MerchantHome />} />
+          <Route path='create' element={<MerchantCreate />} />
+          <Route path='marketplace/:id' element={<MerchantProfile />} />
+        </Route>
 
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={[1]}>
@@ -71,7 +86,7 @@ function App() {
         </Route>
         
         <Route path="/"  element={ 
-          <ProtectedRoute allowedRoles={[2, 3]}>
+          <ProtectedRoute allowedRoles={[3]}>
             <UserLayout />
           </ProtectedRoute>}>
           <Route index element={<UserHome />} />
