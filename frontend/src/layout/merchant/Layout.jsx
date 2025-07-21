@@ -46,7 +46,7 @@ function Sidebar({ isOpen, activePath, toggleSidebar }) {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -80, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed z-40 top-0 left-0 h-full w-20 bg-[var(--color-warmSand)] flex flex-col items-center py-6 md:relative md:translate-x-0 md:opacity-100 md:w-20 border-r border-[var(--color-creamParchment)]"
+          className="fixed z-40 top-0 left-0 h-full w-20 bg-white flex flex-col items-center py-6 md:relative md:translate-x-0 md:opacity-100 md:w-20 border-r border-gray-100"
         >
           <div className="flex flex-1 flex-col items-center justify-center gap-2 w-full">
             <nav className="flex flex-col gap-2 items-center w-full mb-24">
@@ -69,7 +69,7 @@ function Sidebar({ isOpen, activePath, toggleSidebar }) {
 
 function DesktopSidebar({ activePath }) {
   return (
-    <aside className="hidden md:flex flex-col items-center w-20 h-screen bg-[var(--color-warmSand)] border-r border-[var(--color-creamParchment)] py-6 z-30">
+    <aside className="hidden md:block fixed z-30 top-0 left-0 h-full w-20 py-6">
       <div className="flex-1 flex flex-col items-center mt-20">
         <nav className="flex flex-col gap-2 items-center w-full">
           {merchantMenus.map((menu) => (
@@ -232,17 +232,7 @@ function Layout({ children }) {
   const toggleSidebar = () => setSidebarOpen((open) => !open);
 
   return (
-    <div className="min-h-screen flex bg-[#fafbfc] font-poppins relative">
-      <div 
-        // className="fixed inset-0 z-0 opacity-30"
-        // style={{
-        //   backgroundImage: "url('https://images.unsplash.com/photo-1699544084159-19ab53017724?q=80&w=3000&auto=format&fit=crop')",
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "center",
-        //   backgroundAttachment: "fixed",
-        // }}
-      />
-
+    <div className="min-h-screen flex font-poppins relative">
       {/* Content Layer */}
       <div className="relative z-10 flex w-full">
         <DesktopSidebar activePath={activePath} />
@@ -253,11 +243,19 @@ function Layout({ children }) {
         />
         <div className="flex-1 flex flex-col min-w-0">
           <Header toggleSidebar={toggleSidebar} />
-          <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 bg-[var(--color-warmSand)]/20">
-            <div 
-              className="w-full h-full min-h-[60vh]"
-            >
-              <Outlet/>
+          <main className="flex-1 p-2 md:p-8 transition-all duration-300 pt-24 md:pt-24 relative">
+            {/* Fixed Gradient Background */}
+            <div
+              className="fixed inset-0 -z-10 bg-[var(--color-softPeach)]/60"
+              style={{
+                backgroundAttachment: 'fixed',
+                backgroundSize: 'cover',
+              }}
+            />
+
+            {/* Scrollable Content */}
+            <div className="relative z-10 w-full h-full min-h-[60vh]">
+              <Outlet />
             </div>
           </main>
         </div>

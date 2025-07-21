@@ -16,7 +16,7 @@ const MarketplaceCard = ({ marketplace }) => {
 
   return (
     <div
-      className={`relative flex flex-col bg-white rounded-2xl shadow-lg p-6 transition-transform duration-200 hover:-translate-y-1 hover:shadow-2xl min-h-[340px]`}
+      className={`relative flex flex-col bg-white rounded-2xl shadow-lg p-6 transition-transform duration-200  min-h-[340px]`}
     >
       {isClosed && (
         <div className="absolute inset-0 rounded-2xl z-20 pointer-events-none overflow-hidden">
@@ -73,7 +73,7 @@ const MarketplaceCard = ({ marketplace }) => {
       </button>
       {isClosed && (
         <NavLink
-          to={`/marketplace/${marketplace.id}`}
+          to={`marketplace/${marketplace.id}`}
           className="flex items-center justify-center gap-1 text-xs px-3 py-2 mt-2 z-25 rounded-lg bg-gray-100 text-gray-600 hover:bg-softPeach transition-colors duration-200 group"
         >
           <span className="opacity-70 group-hover:opacity-100 transition-opacity">

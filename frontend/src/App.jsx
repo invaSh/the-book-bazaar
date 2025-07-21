@@ -15,7 +15,7 @@ import SignUp from './pages/user/SignUp';
 import Activity from './pages/user/Activity';
 import MerchantLayout from './layout/merchant/Layout';
 import MerchantCreate from './pages/merchant/Create'
-
+import MerchantProfile from './pages/merchant/Profile'
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -75,6 +75,7 @@ function App() {
         }>
           <Route index element={<MerchantHome />} />
           <Route path='create' element={<MerchantCreate />} />
+          <Route path='marketplace/:id' element={<MerchantProfile />} />
         </Route>
 
         <Route path="/admin" element={
