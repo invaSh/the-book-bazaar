@@ -7,3 +7,7 @@ export async function getMarketplaces(){
 export async function createMarketplace(data){
   return fetchWrapper.post('/marketplace', data)
 }
+
+export async function getMarketplaceProfile(id){
+  return fetchWrapper.get(`/marketplace/${id}`)
+}
