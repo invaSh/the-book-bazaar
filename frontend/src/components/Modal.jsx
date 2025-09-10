@@ -16,6 +16,8 @@ const Modal = ({ open, onClose, children }) => {
           borderRadius: 2,
           maxHeight: '90vh',
           overflowY: 'auto',
+          width: '90vw', 
+          maxWidth: '1400px',
         }}
       >
         {children}

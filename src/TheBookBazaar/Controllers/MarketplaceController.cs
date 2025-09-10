@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheBookBazaar.Application.Marketplace;
@@ -17,7 +18,7 @@ namespace TheBookBazaar.Controllers
             _mediator = mediator;
         }
 
-
+        [Authorize(Roles = "Merchant")]
         [HttpPost]
         public async Task<ActionResult<MarketplaceDto>> Create(Create.Command command)
         {
@@ -39,10 +40,9 @@ namespace TheBookBazaar.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult> Status([FromRoute] string id, [FromBody] Status.Command command)
+        public async Task<ActionResult> Status(string id)
         {
-            command.Id = Guid.Parse(id);
-            await _mediator.Send(command);
+            await _mediator.Send(new ToggleStatus.Command {  Id = Guid.Parse(id) });
             return Ok("Status changed successfully!");
         }
 

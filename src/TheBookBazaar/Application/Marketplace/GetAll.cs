@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TheBookBazaar.Domain;
 using TheBookBazaar.DTOs;
+using TheBookBazaar.Middleware;
 using TheBookBazaar.Persistance;
 
 namespace TheBookBazaar.Application.Marketplace
@@ -33,8 +34,11 @@ namespace TheBookBazaar.Application.Marketplace
 
             public async Task<List<MarketplaceDto>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _userManager.GetUserAsync(request.UserPrincipal);
-                var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+                var user = await _userManager.GetUserAsync(request.UserPrincipal)
+                    ?? throw new StatusException(System.Net.HttpStatusCode.Unauthorized, "User unauthorized or not found");
+                var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault()
+                    ?? throw new StatusException(System.Net.HttpStatusCode.Unauthorized, "User not authorized to access marketplaces");
+
                 List<Domain.Marketplace> marketplaces;
                 List<MarketplaceDto> marketplaceDtos = new List<MarketplaceDto>();
                 if (role == "Merchant")

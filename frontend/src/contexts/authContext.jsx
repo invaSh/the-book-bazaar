@@ -1,21 +1,25 @@
+// authContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import toast from 'react-hot-toast';
+import { setFetchToken } from '../lib/fetchWrapper';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const login = (token) => {
     setAccessToken(token);
+    setFetchToken(token);
     const decoded = jwtDecode(token);
     setUser(decoded);
   };
 
   const logout = async () => {
-    const loading = toast.loading('Signing you out..');
+    const loadingToast = toast.loading('Signing you out..');
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/sign-out`, {
         method: 'POST',
@@ -23,10 +27,10 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (!res.ok) {
-        toast.error('Error signing out', { id: loading });
+        toast.error('Error signing out', { id: loadingToast });
         return;
       }
-      toast.success('Sign out successful!', { id: loading });
+      toast.success('Sign out successful!', { id: loadingToast });
     } catch (error) {
       console.error('Logout request failed:', error);
     }
@@ -43,23 +47,26 @@ export const AuthProvider = ({ children }) => {
           {
             method: 'POST',
             credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({}),
           }
         );
+
         if (!res.ok) {
-          // console.log('Refresh failed!');
+          setLoading(false);
           return;
         }
+
         const data = await res.json();
         const token = data.accessToken.result;
         setAccessToken(token);
+        setFetchToken(token);
         setUser(jwtDecode(token));
         console.log('Refresh successful!');
       } catch (e) {
         console.error('Silent refresh error: ', e);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -67,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ accessToken, user, login, logout }}>
+    <AuthContext.Provider value={{ accessToken, user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

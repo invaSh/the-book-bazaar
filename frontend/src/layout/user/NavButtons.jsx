@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom';
 import Modal from '../../components/Modal';
 import { SignOutDialog } from './SignOutDialog';
+import { useAuth } from '../../contexts/authContext';
 
 export function SearchButton() {
   return (
@@ -35,7 +36,7 @@ export function UserButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [showSignOutDialog, setShowSignOutDialog] = useState(false);
   const dropdownRef = useRef(null);
-
+  const { user } = useAuth();
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -46,11 +47,16 @@ export function UserButton() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const menuItems = [
-    { icon: Bookmark, label: 'Wishlist', path: '/wishlist' },
-    { icon: Settings, label: 'Settings', path: '/settings' },
-    { icon: HelpCircle, label: 'Help', path: '/help' },
-  ];
+  let menuItems;
+
+  if (user.role_id == 2) {
+    menuItems = [];
+  } else {
+    menuItems = [
+      { icon: Settings, label: 'Settings', path: '/settings' },
+      { icon: HelpCircle, label: 'Help', path: '/help' },
+    ];
+  }
 
   const handleSignOutClick = () => {
     setIsOpen(false);
@@ -69,8 +75,11 @@ export function UserButton() {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-creamParchment border border-goldFoiling/20 rounded-lg shadow-lg overflow-hidden z-50">
           <div className="py-1">
+            <div className="px-4 py-2 text-sm text-richNavy/80">
+              {user.username}
+            </div>
             <div className="px-4 py-2 text-sm text-richNavy/80 border-b border-goldFoiling/10">
-              user@bookbazaar.com
+              {user.email}
             </div>
             {menuItems.map((item) => (
               <Link
