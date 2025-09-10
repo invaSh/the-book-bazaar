@@ -22,9 +22,18 @@ import { formatDate } from '../../utils/helpers';
 import { FiExternalLink, FiMoreHorizontal } from 'react-icons/fi';
 import { getMarketplaceProfile } from '../../actions/marketplaceActions';
 import { useParams } from 'react-router-dom';
+import Preloader from '../../components/Preloader';
+import Header from '../../features/merchant/profile/MarketplaceHeader';
+import Banner from '../../features/merchant/profile/MarketplaceBanner';
+import Info from '../../features/merchant/profile/MarketplaceInfo';
+import Owner from '../../features/merchant/profile/MarketplaceOwner';
+import BookFilters from '../../features/merchant/profile/BookFilters';
+import AddBookModal from '../../features/merchant/profile/AddBookModal';
 
 const MarketplaceProfile = () => {
   const [marketplace, setMarketplace] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const [isEditingDates, setIsEditingDates] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -60,282 +69,44 @@ const MarketplaceProfile = () => {
       } else {
         setMarketplace(response.data);
       }
+      setLoading(false);
     };
     fetchMarketplace();
   }, []);
 
+  const handleAddBook = (bookData) => {
+    console.log('New book data:', bookData);
+    // Here you would typically call an API to add the book
+    // Example:
+    // const newBook = await addBookToMarketplace(id, bookData);
+    // setMarketplace(prev => ({
+    //   ...prev,
+    //   books: [...prev.books, newBook]
+    // }));
+  };
+
   return (
     <div className="max-w-[100rem] mx-auto p-6 h-full">
-      {marketplace && (
+      {loading && <Preloader isLoading={loading} />}
+      {marketplace && !loading && (
         <>
-          <div className="flex flex-col gap-4 lg:flex-row justify-center lg:justify-between items-center lg:items-center mb-6">
-            <h1 className="text-2xl font-light text-[var(--color-richNavy)] font-poppins md:text-center md:text-3xl lg:text-left">
-              {marketplace.title}
-            </h1>
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={toggleMarketplaceStatus}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium cursor-pointer transition-colors  md:text-base text-sm ${
-                  marketplace.status === 'Active'
-                    ? ' text-deepBurgundy hover:text-red-900'
-                    : 'text-[var(--color-goldFoiling)] hover:text-amber-900'
-                }`}
-              >
-                {marketplace.status === 'Active' ? (
-                  <>
-                    <FaLock className=" md:text-base text-sm" /> Close Marketplace
-                  </>
-                ) : (
-                  <>
-                    <FaUnlock className=" md:text-base text-sm" /> Open Marketplace
-                  </>
-                )}
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[var(--color-richNavy)] font-medium hover:bg-gray-100 transition-colors md:text-base text-sm">
-                <FaPlus /> Add Book
-              </button>
-            </div>
-          </div>
-
-          {/* Banner and Info Grid Row */}
+          <Header
+            onToggleStatus={toggleMarketplaceStatus}
+            marketplace={marketplace}
+            onAddBook={() => setOpen(true)}
+          />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <div className="lg:col-span-2 border-dashed flex items-center border-amber-700/20 justify-center min-h-[200px] cursor-pointer hover:bg-[var(--color-creamParchment)] transition-colors backdrop-blur-3xl bg-white/50 border rounded-4xl">
-              <div className="text-center">
-                <FaPlus className="mx-auto text-3xl text-[var(--color-goldFoiling)] mb-2" />
-                <p className="text-[var(--color-richNavy)] font-medium">
-                  Add Banner Image
-                </p>
-                <p className="text-sm text-[var(--color-mutedSlate)]">
-                  Recommended size: 1200x400px
-                </p>
-              </div>
-            </div>
-
-            <div className="relative p-5 bg-white/60 backdrop-blur-3xl rounded-3xl border border-white/30">
-              <div className="space-y-5">
-                <div className="pb-3 border-b border-white/40">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                    Description
-                  </h3>
-                  <p className="text-sm text-[var(--color-richNavy)] leading-relaxed">
-                    {marketplace.description}
-                  </p>
-                </div>
-                <div className="pb-3 border-b border-white/40">
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                    Status
-                  </h3>
-                  <button
-                    onClick={toggleMarketplaceStatus}
-                    className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                      marketplace.status === 'Active'
-                        ? 'bg-[var(--color-mellowApricot)/80] text-[var(--color-goldFoiling)] shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]'
-                        : 'bg-[var(--color-paleRose)/80] text-[var(--color-deepBurgundy)] shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]'
-                    }`}
-                  >
-                    {marketplace.status === 'Active' ? (
-                      <FaUnlock className="mr-2 text-xs" />
-                    ) : (
-                      <FaLock className="mr-2 text-xs" />
-                    )}
-                    {marketplace.status}
-                  </button>
-                </div>
-
-                {isEditingDates ? (
-                  <form
-                    onSubmit={handleSubmit(onSubmitDates)}
-                    className="space-y-4"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                          Open Date
-                        </label>
-                        <input
-                          type="date"
-                          {...register('openDate')}
-                          className="w-full p-2 text-xs rounded-lg border border-[var(--color-warmSand)/50] bg-white/70 focus:ring-1 focus:ring-[var(--color-goldFoiling)/30]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                          Close Date
-                        </label>
-                        <input
-                          type="date"
-                          {...register('closeDate')}
-                          className="w-full p-2 text-xs rounded-lg border border-[var(--color-warmSand)/50] bg-white/70 focus:ring-1 focus:ring-[var(--color-goldFoiling)/30]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex gap-2 justify-end">
-                      <button
-                        type="button"
-                        onClick={() => setIsEditingDates(false)}
-                        className="px-3 py-1.5 text-xs font-medium bg-white/50 text-[var(--color-richNavy)] rounded-lg hover:bg-white/70 transition-colors"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className="px-3 py-1.5 text-xs font-medium bg-[var(--color-goldFoiling)] text-white rounded-lg hover:bg-[var(--color-goldFoiling)/90] transition-colors"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  <div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
-                      <div>
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-1">
-                          Open Date
-                        </h3>
-                        <p className="text-sm text-[var(--color-richNavy)]">
-                          {formatDate(marketplace.openDate)}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-1">
-                          Close Date
-                        </h3>
-                        <p className="text-sm text-[var(--color-richNavy)]">
-                          {formatDate(marketplace.closeDate)}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setIsEditingDates(true)}
-                      className="text-xs text-[var(--color-goldFoiling)] hover:text-[var(--color-goldFoiling)/80] transition-colors flex items-center gap-1"
-                    >
-                      <FaEdit className="text-xs" /> Edit dates
-                    </button>
-                  </div>
-                )}
-                <div className="pt-2">
-                  <p className="text-xs text-[var(--color-mutedSlate)/90]">
-                    Created {formatDate(marketplace.createdAt)}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Banner />
+            <Info
+              marketplace={marketplace}
+              onUpdateDates={onSubmitDates}
+              onToggleStatus={toggleMarketplaceStatus}
+            />
           </div>
 
-          <div className="backdrop-blur-md flex bg-white/50 border border-white/20 rounded-4xl flex-col md:items-start items-center text-center md:text-left p-6 mb-6">
-            <h2 className="md:text-3xlt-xl font-light text-[var(--color-richNavy)] mb-4">
-              Marketplace Owner
-            </h2>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-[var(--color-warmSand)] flex items-center justify-center text-xl font-medium text-[var(--color-richNavy)]">
-                {marketplace.user.fullName
-                  .split(' ')
-                  .map((n) => n[0])
-                  .join('')}
-              </div>
-              <div>
-                <h3 className="md:text-lg font-medium text-[var(--color-richNavy)]">
-                  {marketplace.user.fullName}
-                </h3>
-                <p className="text-xs md:text-sm text-[var(--color-mutedSlate)]">
-                  @{marketplace.user.userName}
-                </p>
-                <p className="text-xs md:text-sm text-[var(--color-richNavy)] mt-1">
-                  {marketplace.user.email}
-                </p>
-              </div>
-            </div>
-          </div>
+          <Owner user={marketplace.user} />
+          <BookFilters />
 
-          {/* Filters */}
-          <div className="rounded-xl p-4 mb-6">
-              <div className="md:hidden items-center gap-2 text-center mb-5">All filters</div>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <div className="md:flex hidden items-center gap-2">All filters</div>
-              <div className="flex items-center gap-2">
-                <FaFilter className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>All Conditions</option>
-                  <option>New</option>
-                  <option>Like New</option>
-                  <option>Good</option>
-                  <option>Fair</option>
-                </select>
-              </div>
-
-              {/* Price Range Filter */}
-              <div className="flex items-center gap-2">
-                <FaDollarSign className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>Price Range</option>
-                  <option>Under $10</option>
-                  <option>$10 - $25</option>
-                  <option>$25 - $50</option>
-                  <option>Over $50</option>
-                </select>
-              </div>
-
-              {/* Genre Filter */}
-              <div className="flex items-center gap-2">
-                <FaBook className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>All Genres</option>
-                  <option>Fiction</option>
-                  <option>Non-Fiction</option>
-                  <option>Mystery</option>
-                  <option>Science Fiction</option>
-                </select>
-              </div>
-
-              {/* Format Filter */}
-              <div className="flex items-center gap-2">
-                <FaBookOpen className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>All Formats</option>
-                  <option>Hardcover</option>
-                  <option>Paperback</option>
-                  <option>Audiobook</option>
-                  <option>eBook</option>
-                </select>
-              </div>
-
-              {/* Rating Filter */}
-              <div className="flex items-center gap-2">
-                <FaStar className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>All Ratings</option>
-                  <option>5 Stars</option>
-                  <option>4+ Stars</option>
-                  <option>3+ Stars</option>
-                  <option>Any Rating</option>
-                </select>
-              </div>
-
-              {/* Availability Filter */}
-              <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>Availability</option>
-                  <option>In Stock</option>
-                  <option>Pre-Order</option>
-                  <option>Out of Stock</option>
-                </select>
-              </div>
-
-              {/* Sort By Filter */}
-              <div className="flex items-center gap-2">
-                <FaSort className="text-[var(--color-richNavy)] opacity-80" />
-                <select className="backdrop-blur-sm bg-white/50 px-3 py-2 rounded-full border border-white/30 focus:ring-2 focus:ring-[var(--color-goldFoiling)] text-[var(--color-richNavy)]">
-                  <option>Sort By</option>
-                  <option>Newest</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Best Selling</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          {/* Table Section */}
           <div className="bg-white/50 backdrop-blur-sm rounded-4xl overflow-hidden mb-8 p-4 sm:p-6 lg:p-10">
             {marketplace.books.length > 0 ? (
               <div className="flex flex-col lg:flex-row gap-8">
@@ -483,6 +254,12 @@ const MarketplaceProfile = () => {
           </div>
         </>
       )}
+
+      <AddBookModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={handleAddBook}
+      />
     </div>
   );
 };

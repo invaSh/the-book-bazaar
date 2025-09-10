@@ -11,3 +11,7 @@ export async function createMarketplace(data){
 export async function getMarketplaceProfile(id){
   return fetchWrapper.get(`/marketplace/${id}`)
 }
+
+export async function changeStatus(id){
+  return fetchWrapper.patch(`/marketplace/${id}`)
+}

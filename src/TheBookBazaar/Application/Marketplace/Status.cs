@@ -55,6 +55,8 @@ namespace TheBookBazaar.Application.Marketplace
                 }
                 var marketplace = await _context.Marketplaces.FindAsync(request.Id)
                     ?? throw new StatusException(System.Net.HttpStatusCode.NotFound, new { error = "Marketplace does not exist." });
+                if(!marketplace.Books.Any() && request.Status == 1)
+                     throw new StatusException(System.Net.HttpStatusCode.BadRequest, new { error = "Cannot open marketplace with no books" });
                 marketplace.Status = (Domain.Status)request.Status;
                 await _context.SaveChangesAsync();
                 return Unit.Value;

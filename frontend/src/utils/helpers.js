@@ -15,3 +15,9 @@ export const formatDate = (date) => {
 
   return formatter.format(d).replace(',', '');
 };
+
+export const getBasePath = (roleId) => {
+  if(!roleId) return;
+
+  return roleId == 1 ? 'admin' : roleId == 2 ? 'merchant' : 'user' 
+}

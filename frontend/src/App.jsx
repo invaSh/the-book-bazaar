@@ -16,6 +16,7 @@ import Activity from './pages/user/Activity';
 import MerchantLayout from './layout/merchant/Layout';
 import MerchantCreate from './pages/merchant/Create'
 import MerchantProfile from './pages/merchant/Profile'
+import Preloader from './components/Preloader'
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -34,7 +35,11 @@ const PublicRoute = ({ children }) => {
 };
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if(loading){
+    return <Preloader isLoading={loading}/>
+  }
 
   if (!user) {
     return <Navigate to="/sign-in" replace />;
