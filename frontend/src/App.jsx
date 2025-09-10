@@ -17,6 +17,7 @@ import MerchantLayout from './layout/merchant/Layout';
 import MerchantCreate from './pages/merchant/Create'
 import MerchantProfile from './pages/merchant/Profile'
 import Preloader from './components/Preloader'
+import { ToastContainer } from 'react-toastify';
 
 const PublicRoute = ({ children }) => {
   const { user } = useAuth();
@@ -64,7 +65,18 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 function App() {
   return (
     <Router>
-      <AdminKitToaster />
+        <ToastContainer
+          position="top-center"
+          autoClose={3000} // auto close after 3 seconds
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light" // or dark
+        />
       <Routes>
         <Route path="/sign-in" element={<PublicRoute><UserSignIn /></PublicRoute>}/>
         <Route path='/sign-up' element={<PublicRoute><SignUp /></PublicRoute>} />

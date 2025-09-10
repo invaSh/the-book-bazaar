@@ -122,7 +122,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
                     <FaBook className="inline mr-2" />
-                    Book Title *
+                    Book Title <span className="text-deepBurgundy">*</span>
                   </label>
                   <input
                     type="text"
@@ -142,7 +142,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
                     <FaUser className="inline mr-2" />
-                    Author *
+                    Author <span className="text-deepBurgundy">*</span>
                   </label>
                   <input
                     type="text"
@@ -165,7 +165,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
                     <FaBarcode className="inline mr-2" />
-                    ISBN
+                    ISBN <span className="text-deepBurgundy">*</span>
                   </label>
                   <input
                     type="text"
@@ -180,7 +180,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
                     <FaDollarSign className="inline mr-2" />
-                    Price *
+                    Price <span className="text-deepBurgundy">*</span>
                   </label>
                   <input
                     type="number"
@@ -207,7 +207,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                    Condition *
+                    Condition <span className="text-deepBurgundy">*</span>
                   </label>
                   <select
                     {...register('condition', {
@@ -227,7 +227,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
 
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                    Genre
+                    Genre <span className="text-deepBurgundy">*</span>
                   </label>
                   <select
                     {...register('genre')}
@@ -249,7 +249,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
 
                 <div>
                   <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                    Format
+                    Format <span className="text-deepBurgundy">*</span>
                   </label>
                   <select
                     {...register('format')}
@@ -268,7 +268,7 @@ const AddBookModal = ({ open, onClose, onSubmit }) => {
               {/* Description */}
               <div>
                 <label className="block text-sm font-semibold uppercase tracking-wider text-[var(--color-mutedSlate)] mb-2">
-                  Description
+                  Description <span className="text-deepBurgundy">*</span>
                 </label>
                 <textarea
                   {...register('description')}

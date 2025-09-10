@@ -20,7 +20,10 @@ import {
 } from 'react-icons/fa';
 import { formatDate } from '../../utils/helpers';
 import { FiExternalLink, FiMoreHorizontal } from 'react-icons/fi';
-import { getMarketplaceProfile } from '../../actions/marketplaceActions';
+import {
+  changeStatus,
+  getMarketplaceProfile,
+} from '../../actions/marketplaceActions';
 import { useParams } from 'react-router-dom';
 import Preloader from '../../components/Preloader';
 import Header from '../../features/merchant/profile/MarketplaceHeader';
@@ -29,37 +32,22 @@ import Info from '../../features/merchant/profile/MarketplaceInfo';
 import Owner from '../../features/merchant/profile/MarketplaceOwner';
 import BookFilters from '../../features/merchant/profile/BookFilters';
 import AddBookModal from '../../features/merchant/profile/AddBookModal';
+import { toast } from 'react-toastify';
 
 const MarketplaceProfile = () => {
+  const { id } = useParams();
   const [marketplace, setMarketplace] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
-  const [isEditingDates, setIsEditingDates] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
       openDate: marketplace?.openDate?.split('T')[0] || '',
       closeDate: marketplace?.closeDate?.split('T')[0] || '',
     },
   });
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [isEditingDates, setIsEditingDates] = useState(false);
   const [selectedBook, setSelectedBook] = useState(false);
-  const { id } = useParams();
-  const toggleMarketplaceStatus = () => {
-    setMarketplace((prev) => ({
-      ...prev,
-      status: prev.status === 'Active' ? 'Closed' : 'Active',
-      updatedAt: new Date().toISOString(),
-    }));
-  };
-
-  const onSubmitDates = (data) => {
-    setMarketplace((prev) => ({
-      ...prev,
-      openDate: data.openDate ? `${data.openDate}T00:00:00` : null,
-      closeDate: data.closeDate ? `${data.closeDate}T00:00:00` : null,
-      updatedAt: new Date().toISOString(),
-    }));
-    setIsEditingDates(false);
-  };
+  const [isChanging, setIsChanging] = useState(false);
 
   useEffect(() => {
     const fetchMarketplace = async () => {
@@ -74,34 +62,50 @@ const MarketplaceProfile = () => {
     fetchMarketplace();
   }, []);
 
+  const changeMarketplaceStatus = async () => {
+    setIsChanging(true);
+    
+    const response = await changeStatus(id);
+    if(response.error){
+      toast.error(response.error.message.error || response.error.message);
+    }else{
+      console.log(response.data);
+    }
+    setIsChanging(false);
+  };
+
+  const onSubmitDates = (data) => {
+    setMarketplace((prev) => ({
+      ...prev,
+      openDate: data.openDate ? `${data.openDate}T00:00:00` : null,
+      closeDate: data.closeDate ? `${data.closeDate}T00:00:00` : null,
+      updatedAt: new Date().toISOString(),
+    }));
+    setIsEditingDates(false);
+  };
+
   const handleAddBook = (bookData) => {
     console.log('New book data:', bookData);
-    // Here you would typically call an API to add the book
-    // Example:
-    // const newBook = await addBookToMarketplace(id, bookData);
-    // setMarketplace(prev => ({
-    //   ...prev,
-    //   books: [...prev.books, newBook]
-    // }));
   };
 
   return (
     <div className="max-w-[100rem] mx-auto p-6 h-full">
       {loading && <Preloader isLoading={loading} />}
+      {isChanging && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-black/30">
+          <div className="w-16 h-16 border-4 border-white/40 border-t-[var(--color-goldFoiling)] rounded-full animate-spin"></div>
+        </div>
+      )}
       {marketplace && !loading && (
         <>
           <Header
-            onToggleStatus={toggleMarketplaceStatus}
+            onToggleStatus={changeMarketplaceStatus}
             marketplace={marketplace}
             onAddBook={() => setOpen(true)}
           />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             <Banner />
-            <Info
-              marketplace={marketplace}
-              onUpdateDates={onSubmitDates}
-              onToggleStatus={toggleMarketplaceStatus}
-            />
+            <Info marketplace={marketplace} onUpdateDates={onSubmitDates} />
           </div>
 
           <Owner user={marketplace.user} />

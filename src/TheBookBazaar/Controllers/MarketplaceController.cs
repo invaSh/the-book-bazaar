@@ -40,10 +40,9 @@ namespace TheBookBazaar.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult> Status([FromRoute] string id, [FromBody] Status.Command command)
+        public async Task<ActionResult> Status(string id)
         {
-            command.Id = Guid.Parse(id);
-            await _mediator.Send(command);
+            await _mediator.Send(new ToggleStatus.Command {  Id = Guid.Parse(id) });
             return Ok("Status changed successfully!");
         }
 

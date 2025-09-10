@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaLock, FaUnlock, FaEdit } from 'react-icons/fa';
 import { formatDate } from '../../../utils/helpers';
 
-const MarketplaceInfo = ({ marketplace, onUpdateDates, onToggleStatus }) => {
+const MarketplaceInfo = ({ marketplace, onUpdateDates }) => {
   const [isEditingDates, setIsEditingDates] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -34,7 +34,6 @@ const MarketplaceInfo = ({ marketplace, onUpdateDates, onToggleStatus }) => {
             Status
           </h3>
           <button
-            onClick={onToggleStatus}
             className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
               marketplace.status === 'Active'
                 ? 'bg-[var(--color-mellowApricot)/80] text-[var(--color-goldFoiling)] shadow-[inset_0_1px_4px_rgba(255,255,255,0.3)]'
